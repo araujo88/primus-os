@@ -16,6 +16,6 @@ qemu-system-x86_64 bootloader.bin
 
 gcc -c kernel.c -o kernel -ffreestanding -m32
 
-## Gerating the ISO image
+## Generating the ISO image
 
 make my-first-os.iso
