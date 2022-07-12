@@ -18,4 +18,4 @@ data:
 msg db 'Hello World!', 0
 
 times 510-($-$$) db 0	; fill the output file with zeroes until 510 bytes
-dw 0xaa55		; magic number tha tells the BIOS this is bootable 
+dw 0xaa55		; magic number that tells the BIOS this is bootable 
