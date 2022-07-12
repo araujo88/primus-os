@@ -4,7 +4,7 @@
 start:
 	mov si, msg 	; load the address of msg into si register
 	mov ah, 0x0e 	; sets ah to 0xe (function teletype)
-	cli
+	cli		; disables maskable interrupt
 .printchar:
 	lodsb 		; loads the current byte from si into al and increments
 	cmp al, 0 	; compares al to zero
