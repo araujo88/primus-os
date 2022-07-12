@@ -1,20 +1,21 @@
-// VGA Color codes:
-// black            0
-// blue             1
-// green            2
-// cyan             3
-// red              4
-// magenta          5
-// brown            6
-// light grey       7
-// dark grey        8
-// light blue       9
-// light green      10
-// light cyan       11
-// light red        12
-// light magenta    13
-// light brown      14
-// white            15
+enum VGA_COLOR {
+    VGA_COLOR_BLACK = 0x00,
+	VGA_COLOR_BLUE = 0x01,
+	VGA_COLOR_GREEN = 0x02,
+	VGA_COLOR_CYAN = 0x03,
+	VGA_COLOR_RED = 0x04,
+	VGA_COLOR_MAGENTA = 0x05,
+	VGA_COLOR_BROWN = 0x06,
+	VGA_COLOR_LIGHT_GREY = 0x07,
+	VGA_COLOR_DARK_GREY = 0x08,
+	VGA_COLOR_LIGHT_BLUE = 0x09,
+	VGA_COLOR_LIGHT_GREEN = 0x10,
+	VGA_COLOR_LIGHT_CYAN = 0x11,
+	VGA_COLOR_LIGHT_RED = 0x12,
+	VGA_COLOR_LIGHT_MAGENTA = 0x13,
+	VGA_COLOR_LIGHT_BROWN = 0x14,
+	VGA_COLOR_WHITE = 0x15,
+};
 
 static char *const VGA_MEMORY = (char *)0xb8000; // physical memory of video buffer
 
@@ -35,7 +36,7 @@ int main(void)
     while (str[i] != '\0')
     {
         VGA_MEMORY[j] = str[i];
-        VGA_MEMORY[j + 1] = 0x07; // light grey color
+        VGA_MEMORY[j + 1] = VGA_COLOR_LIGHT_GREY;
         i++;
         j += 2; // increment by two bytes
     }
