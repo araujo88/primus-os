@@ -3,6 +3,8 @@
 
 #include "stddef.h"
 
+char *ctos(char s[2], const char c);
+void *memset(void *bufptr, int value, size_t size);
 int memcmp(const void *aptr, const void *bptr, size_t size);
 size_t strlen(const char *);
 char *strcat(char *d, const char *s);

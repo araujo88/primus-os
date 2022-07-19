@@ -1,6 +1,10 @@
 #ifndef _TTY_H
 #define _TTY_H 1
 
+#include "stdint.h"
+#include "stddef.h"
+#include "stdarg.h"
+
 enum vga_color
 {
     COLOR_BLACK = 0,
@@ -21,9 +25,14 @@ enum vga_color
     COLOR_WHITE = 15,
 };
 
+static const size_t VGA_WIDTH = 80;
+static const size_t VGA_HEIGHT = 25;
+
 void terminal_initialize(enum vga_color font_color, enum vga_color background_color);
+void terminal_set_colors(enum vga_color font_color, enum vga_color background_color);
 int printf(const char *format, ...);
 int get_terminal_row(void);
 int get_terminal_col(void);
+void term_putc(char c, enum vga_color char_color);
 
 #endif
