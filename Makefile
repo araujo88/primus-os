@@ -1,17 +1,27 @@
+CC=gcc
+AS=as
 GCCPARAMS = -m32 -nostdlib -fno-builtin -fno-exceptions -ffreestanding -fno-leading-underscore
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
-objects = loader.o kernel.o
+SRC_DIR=src
+HDR_DIR=include/
+OBJ_DIR=obj
 
-%.o: %.c
-	gcc $(GCCPARAMS) -c -o $@ $<
+SRC_FILES1=$(wildcard $(SRC_DIR)/*.c)
+OBJ_FILES1=$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES1))
+SRC_FILES2=$(wildcard $(SRC_DIR)/*.s)
+OBJ_FILES2=$(patsubst $(SRC_DIR)/%.s, $(OBJ_DIR)/%.o, $(SRC_FILES2))
 
-%.o: %.s
-	as $(ASPARAMS) -o $@ $<
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(GCCPARAMS) $^ -I$(HDR_DIR) -c -o $@
 
-my-first-os.bin: linker.ld $(objects)
-	ld $(LDPARAMS) -T $< -o $@ $(objects)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
+	$(AS) $(ASPARAMS) -o $@ $<
+
+my-first-os.bin: $(SRC_DIR)/linker.ld $(OBJ_FILES1) $(OBJ_FILES2)
+	ld $(LDPARAMS) -T $< -o $@ $(OBJ_DIR)/*.o
 
 my-first-os.iso: my-first-os.bin
 	mkdir iso
@@ -28,9 +38,8 @@ my-first-os.iso: my-first-os.bin
 	grub-mkrescue --output=my-first-os.iso iso
 	rm -rf iso
 
-
 install: my-first-os.bin
 	sudo cp $< /boot/my-first-os.bin
 
 clean:
-	rm -f *.o my-first-os my-first-os.iso my-first-os.bin
+	rm -f *.o my-first-os my-first-os.iso my-first-os.bin $(OBJ_DIR)/*.o
