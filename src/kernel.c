@@ -2,6 +2,9 @@
 #include "../include/io.h"
 #include "../include/kbd.h"
 #include "../include/string.h"
+#include "../include/time.h"
+#include "../include/date.h"
+#include "../include/datetime.h"
 
 #define BUFFER_SIZE 1024
 
@@ -13,6 +16,9 @@ int main(void)
 
 	terminal_initialize(COLOR_LIGHT_GREY, COLOR_BLACK);
 	printf("Welcome! I'm a super advanced operational system with lots of features.\n\n");
+	printf("Date: %s\n", date());
+	printf("Time: %s\n", time());
+	datetime();
 
 	strcpy(&buffer[strlen(buffer)], "");
 	print_prompt();
@@ -101,6 +107,19 @@ int main(void)
 				{
 					terminal_initialize(COLOR_LIGHT_GREY, COLOR_BLACK);
 					strcpy(&buffer[strlen(buffer)], "");
+				}
+				else if (strlen(buffer) > 0 && strcmp(buffer, "time") == 0)
+				{
+					printf("\nTime: %s", time());
+				}
+				else if (strlen(buffer) > 0 && strcmp(buffer, "date") == 0)
+				{
+					printf("\nDate: %s", date());
+				}
+				else if (strlen(buffer) > 0 && strcmp(buffer, "datetime") == 0)
+				{
+					printf("\nDate: %s", date());
+					printf("\nTime: %s", time());
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "reboot") == 0)
 				{

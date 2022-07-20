@@ -37,6 +37,15 @@ void output_bytes(uint16_t port, uint8_t val)
                          : "a"(val), "Nd"(port));
 }
 
+uint8_t inw(uint16_t port)
+{
+    uint8_t ret;
+    __asm__ __volatile__("in %1, %0"
+                         : "= a"(ret)
+                         : "d"(port));
+    return ret;
+}
+
 void outw(uint16_t port, uint16_t data)
 {
     __asm__ __volatile__("out %0, %1"

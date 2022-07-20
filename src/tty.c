@@ -198,6 +198,12 @@ int printf(const char *format, ...)
             char c = (char)va_arg(parameters, int /* char promotes to int */);
             print(&c, sizeof(c));
         }
+        else if (*format == 'd')
+        {
+            format++;
+            int d = (int)va_arg(parameters, int /* char promotes to int */);
+            print((char *)&d, sizeof(d));
+        }
         else if (*format == 's')
         {
             format++;

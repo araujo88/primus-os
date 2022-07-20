@@ -1,7 +1,22 @@
 #ifndef _STRING_H
 #define _STRING_H 1
 
+#include "stdarg.h"
+#include "stdint.h"
 #include "stddef.h"
+
+#define min(a, b) __extension__({ __typeof__ (a) _a = (a); \
+       __typeof__ (b) _b = (b); \
+       _a < _b ? _a : _b; })
+
+enum flag_itoa
+{
+    FILL_ZERO = 1,
+    PUT_PLUS = 2,
+    PUT_MINUS = 4,
+    BASE_2 = 8,
+    BASE_10 = 16,
+};
 
 char *ctos(char s[2], const char c);
 void *memset(void *bufptr, int value, size_t size);
@@ -17,5 +32,8 @@ char *strchr(const char *s, int c);
 int strncmp(const char *s1, const char *s2, size_t n);
 char *toupper(char *string);
 char *tolower(char *string);
+static char *sitoa(char *buf, unsigned int num, int width, enum flag_itoa flags);
+int vsprintf(char *buf, const char *fmt, va_list va);
+int sprintf(char *buf, const char *fmt, ...);
 
 #endif
