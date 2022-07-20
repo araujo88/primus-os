@@ -1,6 +1,8 @@
 #define KBSTATP 0x64 // kbd controller status port(I)
 #define KBS_DIB 0x01 // kbd data in buffer
 #define KBDATAP 0x60 // kbd data port(I)
+#define BACKSPACE 0x0E
+#define ENTER 0x1c
 #define NO 0
 #define SHIFT (1 << 0)
 #define CTL (1 << 1)

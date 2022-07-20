@@ -8,6 +8,7 @@
 int main(void)
 {
 	char buffer[BUFFER_SIZE];
+	int command_size = 0;
 	uint8_t byte;
 
 	terminal_initialize(COLOR_LIGHT_GREY, COLOR_BLACK);
@@ -19,7 +20,7 @@ int main(void)
 	{
 		while (byte = scan())
 		{
-			if (byte == 0x1c)
+			if (byte == ENTER)
 			{
 				if (strlen(buffer) > 0 && strcmp(buffer, "exit") == 0)
 				{
@@ -84,6 +85,12 @@ int main(void)
 					printf("\nNot yet! Maybe I'll become sentient one day? Who knows ...");
 					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "taxation is") != NULL)
+				{
+					terminal_set_colors(COLOR_LIGHT_BROWN, COLOR_BLACK);
+					printf("\nTaxation is theft!");
+					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "who created you") != NULL)
 				{
 					terminal_set_colors(COLOR_WHITE, COLOR_BLACK);
@@ -118,6 +125,17 @@ int main(void)
 				memset(buffer, 0, BUFFER_SIZE);
 				break;
 			}
+			else if ((byte == BACKSPACE) && (strlen(buffer) == 0))
+			{
+			}
+			else if (byte == BACKSPACE)
+			{
+				char c = normalmap[byte];
+				char *s;
+				s = ctos(s, c);
+				printf("%s", s);
+				buffer[strlen(buffer) - 1] = '\0';
+			}
 			else
 			{
 				char c = normalmap[byte];
@@ -128,6 +146,7 @@ int main(void)
 			}
 			move_cursor(get_terminal_row(), get_terminal_col());
 		}
+		command_size = 0;
 	}
 	return 0;
 }
