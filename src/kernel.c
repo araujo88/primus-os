@@ -23,15 +23,31 @@ int main(void)
 				{
 					printf("\nGoodbye!");
 				}
-				if (strlen(buffer) > 0 && strcmp(buffer, "hello") == 0)
+				else if (strlen(buffer) > 0 && strcmp(buffer, "hello") == 0)
 				{
 					printf("\nHi!");
 				}
-				if (strlen(buffer) > 0 && strcmp(buffer, "shutdown") == 0)
+				else if (strlen(buffer) > 0 && strcmp(buffer, "reboot") == 0)
+				{
+					reboot();
+				}
+				else if (strlen(buffer) > 0 && strcmp(buffer, "restart") == 0)
+				{
+					reboot();
+				}
+				else if (strlen(buffer) > 0 && strcmp(buffer, "shutdown") == 0)
 				{
 					outw(0xB004, 0x2000);
 					outw(0x604, 0x2000);
 					outw(0x4004, 0x3400);
+				}
+				else if (strlen(buffer) == 0)
+				{
+				}
+				else
+				{
+					printf("\nUnrecognized command. Are you stupid?");
+					printf("%s", buffer);
 				}
 				print_prompt();
 				memset(&buffer[0], 0, sizeof(buffer));

@@ -1,6 +1,26 @@
 #include "../include/io.h"
 #include "../include/tty.h"
 
+void reboot()
+{
+    uint8_t temp;
+
+    asm volatile("cli"); /* disable all interrupts */
+
+    /* Clear all keyboard buffers (output and command buffers) */
+    do
+    {
+        temp = input_bytes(KBRD_INTRFC); /* empty user data */
+        if (check_flag(temp, KBRD_BIT_KDATA) != 0)
+            input_bytes(KBRD_IO); /* empty keyboard data */
+    } while (check_flag(temp, KBRD_BIT_UDATA) != 0);
+
+    output_bytes(KBRD_INTRFC, KBRD_RESET); /* pulse CPU reset line */
+loop:
+    asm volatile("hlt"); /* if that didn't work, halt the CPU */
+    goto loop;           /* if a NMI is received, halt again */
+}
+
 uint8_t input_bytes(uint16_t port)
 {
     uint8_t ret;
