@@ -27,6 +27,12 @@ int main(void)
 				{
 					printf("\nHi!");
 				}
+				if (strlen(buffer) > 0 && strcmp(buffer, "shutdown") == 0)
+				{
+					outw(0xB004, 0x2000);
+					outw(0x604, 0x2000);
+					outw(0x4004, 0x3400);
+				}
 				print_prompt();
 				memset(&buffer[0], 0, sizeof(buffer));
 				break;

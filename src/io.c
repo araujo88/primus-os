@@ -17,6 +17,13 @@ void output_bytes(uint16_t port, uint8_t val)
                          : "a"(val), "Nd"(port));
 }
 
+void outw(uint16_t port, uint16_t data)
+{
+    __asm__ __volatile__("out %0, %1"
+                         :
+                         : "a"(data), "d"(port));
+}
+
 uint8_t scan(void)
 {
     unsigned char brk;
