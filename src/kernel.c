@@ -97,6 +97,11 @@ int main(void)
 					printf("\nA Brazilian developer whose name is Leonardo Araujo. Check out his GitHub:\nhttps://github.com/araujo88");
 					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 				}
+				else if (strlen(buffer) > 0 && strcmp(buffer, "clear") == 0)
+				{
+					terminal_initialize(COLOR_LIGHT_GREY, COLOR_BLACK);
+					strcpy(&buffer[strlen(buffer)], "");
+				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "reboot") == 0)
 				{
 					reboot();
