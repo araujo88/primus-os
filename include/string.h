@@ -15,5 +15,7 @@ char *strncpy(char *dest, const char *src, size_t n);
 char *strstr(char *s1, const char *s2);
 char *strchr(const char *s, int c);
 int strncmp(const char *s1, const char *s2, size_t n);
+char *toupper(char *string);
+char *tolower(char *string);
 
 #endif

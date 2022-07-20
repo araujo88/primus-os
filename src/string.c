@@ -74,7 +74,7 @@ char *strstr(char *s1, const char *s2)
     while (*s1)
         if (!memcmp(s1++, s2, n))
             return s1 - 1;
-    return 0;
+    return NULL;
 }
 
 char *strcat(char *dest, const char *src)
@@ -131,4 +131,24 @@ char *rtrim(char *s)
 char *trim(char *s)
 {
     return rtrim(ltrim(s));
+}
+
+char *toupper(char *string)
+{
+    for (char *p = string; *p != '\0'; p++)
+    {
+        if (*p >= 'a' && *p <= 'z') // Only if it's a lower letter
+            *p -= 32;
+    }
+    return string;
+}
+
+char *tolower(char *string)
+{
+    for (char *p = string; *p != '\0'; p++)
+    {
+        if (*p >= 'A' && *p <= 'Z') // Only if it's a lower letter
+            *p += 32;
+    }
+    return string;
 }

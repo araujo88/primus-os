@@ -27,6 +27,34 @@ int main(void)
 				{
 					printf("\nHi!");
 				}
+				else if (strlen(buffer) > 0 && strcmp(buffer, "fuck you") == 0)
+				{
+					printf("\nWatch your language scumbag. I'll shutdown when you least are expecting ;)");
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "are you single") != NULL)
+				{
+					printf("\nAre you hitting on me?");
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "do you like anime") != NULL)
+				{
+					printf("\nOf course! Yare Yare daze ...");
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "are you a boy or a girl") != NULL)
+				{
+					printf("\nI can be whatever you want ;)");
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "are you autistic") != NULL)
+				{
+					printf("\nJust a little bit :)");
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "what is your purpose") != NULL)
+				{
+					printf("\nI don't know yet. I guess I'll figure it out sooner or later ...");
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "who created you") != NULL)
+				{
+					printf("\nA Brazilian developer whose name is Leonardo Araujo. Check out his GitHub:\nhttps://github.com/araujo88");
+				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "reboot") == 0)
 				{
 					reboot();
@@ -46,11 +74,10 @@ int main(void)
 				}
 				else
 				{
-					printf("\nUnrecognized command. Are you stupid?");
-					printf("%s", buffer);
+					printf("\n'%s' is an unrecognized command. Are you stupid?", buffer);
 				}
 				print_prompt();
-				memset(&buffer[0], 0, sizeof(buffer));
+				memset(buffer, 0, sizeof(buffer));
 				break;
 			}
 			else
