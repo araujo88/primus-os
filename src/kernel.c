@@ -3,9 +3,11 @@
 #include "../include/kbd.h"
 #include "../include/string.h"
 
+#define BUFFER_SIZE 1024
+
 int main(void)
 {
-	char buffer[1024];
+	char buffer[BUFFER_SIZE];
 	uint8_t byte;
 
 	terminal_initialize(COLOR_LIGHT_GREY, COLOR_BLACK);
@@ -29,31 +31,64 @@ int main(void)
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "fuck you") == 0)
 				{
+					terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
 					printf("\nWatch your language scumbag. I'll shutdown when you least are expecting ;)");
+					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+				}
+				else if (strlen(buffer) > 0 && strcmp(buffer, "sing me a song") == 0)
+				{
+					terminal_set_colors(COLOR_LIGHT_BLUE, COLOR_BLACK);
+					printf("\n\tSing me a song, you're a singer\n\tDo me a wrong, you're a bringer of evil\n\tThe devil is never a maker\n\tThe less that you give, you're a taker\n\tSo it's on and on and on, it's Heaven and Hell\n\tOh well");
+					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "sex") != NULL)
+				{
+					terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+					printf("\nAre you a creep? This message will be reported to my creator.");
+					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "are you single") != NULL)
 				{
+					terminal_set_colors(COLOR_LIGHT_MAGENTA, COLOR_BLACK);
 					printf("\nAre you hitting on me?");
+					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "do you like anime") != NULL)
 				{
-					printf("\nOf course! Yare Yare daze ...");
+					printf("\nOf course! ");
+					terminal_set_colors(COLOR_LIGHT_BROWN, COLOR_BLACK);
+					printf("Yare Yare daze ...");
+					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "are you a boy or a girl") != NULL)
 				{
+					terminal_set_colors(COLOR_LIGHT_MAGENTA, COLOR_BLACK);
 					printf("\nI can be whatever you want ;)");
+					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "are you autistic") != NULL)
 				{
+					terminal_set_colors(COLOR_LIGHT_CYAN, COLOR_BLACK);
 					printf("\nJust a little bit :)");
+					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "what is your purpose") != NULL)
 				{
+					terminal_set_colors(COLOR_GREEN, COLOR_BLACK);
 					printf("\nI don't know yet. I guess I'll figure it out sooner or later ...");
+					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "are you sentient") != NULL)
+				{
+					terminal_set_colors(COLOR_LIGHT_GREEN, COLOR_BLACK);
+					printf("\nNot yet! Maybe I'll become sentient one day? Who knows ...");
+					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "who created you") != NULL)
 				{
+					terminal_set_colors(COLOR_WHITE, COLOR_BLACK);
 					printf("\nA Brazilian developer whose name is Leonardo Araujo. Check out his GitHub:\nhttps://github.com/araujo88");
+					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "reboot") == 0)
 				{
@@ -74,10 +109,13 @@ int main(void)
 				}
 				else
 				{
-					printf("\n'%s' is an unrecognized command. Are you stupid?", buffer);
+					printf("\n'%s' is an unrecognized command. ", buffer);
+					terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+					printf("Are you stupid?", buffer);
+					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 				}
 				print_prompt();
-				memset(buffer, 0, sizeof(buffer));
+				memset(buffer, 0, BUFFER_SIZE);
 				break;
 			}
 			else

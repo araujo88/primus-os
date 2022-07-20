@@ -226,15 +226,15 @@ int get_terminal_col(void)
 void terminal_set_colors(enum vga_color font_color, enum vga_color background_color)
 {
     terminal_color = make_color(font_color, background_color);
-    terminal_buffer = VGA_MEMORY;
-    size_t y;
-    for (y = 0; y < VGA_HEIGHT; y++)
-    {
-        size_t x;
-        for (x = 0; x < VGA_WIDTH; x++)
-        {
-            const size_t index = y * VGA_WIDTH + x;
-            terminal_buffer[index] = make_vgaentry('\0', terminal_color);
-        }
-    }
+    // terminal_buffer = VGA_MEMORY;
+    // size_t y;
+    // for (y = 0; y < VGA_HEIGHT; y++)
+    // {
+    //     size_t x;
+    //     for (x = 0; x < VGA_WIDTH; x++)
+    //     {
+    //         const size_t index = y * VGA_WIDTH + x;
+    //         terminal_buffer[index] = make_vgaentry('\0', terminal_color);
+    //     }
+    // }
 }
