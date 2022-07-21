@@ -29,6 +29,7 @@ primus-os.bin: $(SRC_DIR)/linker.ld $(OBJ_FILES1) $(OBJ_FILES2) $(OBJ_FILES3)
 	ld $(LDPARAMS) -T $< -o $@ $(OBJ_DIR)/*.o
 
 primus-os.iso: primus-os.bin
+	./update_version
 	mkdir iso
 	mkdir iso/boot
 	mkdir iso/boot/grub

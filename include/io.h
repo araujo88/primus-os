@@ -4,6 +4,9 @@
 #include "stdint.h"
 #include "tty.h"
 
+#define true 1
+#define false 0
+
 /* The I/O ports */
 #define FB_COMMAND_PORT 0x3d4
 #define FB_DATA_PORT 0x3d5
@@ -30,6 +33,7 @@
 #define check_flag(flags, n) ((flags)&bit(n))
 
 void reboot();
+void shutdown();
 uint8_t input_bytes(uint16_t port);
 void output_bytes(uint16_t port, uint8_t val);
 uint8_t inw(uint16_t port);

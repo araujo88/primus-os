@@ -35,5 +35,6 @@ char *tolower(char *string);
 static char *sitoa(char *buf, unsigned int num, int width, enum flag_itoa flags);
 int vsprintf(char *buf, const char *fmt, va_list va);
 int sprintf(char *buf, const char *fmt, ...);
+uint32_t atoi(const char *str);
 
 #endif

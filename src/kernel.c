@@ -1,12 +1,18 @@
+#include "../include/version.h"
 #include "../include/tty.h"
 #include "../include/io.h"
 #include "../include/kbd.h"
 #include "../include/string.h"
-#include "../include/time.h"
-#include "../include/date.h"
 #include "../include/datetime.h"
+#include "../include/math.h"
 
 #define BUFFER_SIZE 1024
+
+uint8_t numlock = true;
+uint8_t capslock = false;
+uint8_t scrolllock = false;
+uint8_t shift = false;
+char current_version[7];
 
 int main(void)
 {
@@ -15,14 +21,16 @@ int main(void)
 	uint8_t byte;
 
 	terminal_initialize(COLOR_LIGHT_GREY, COLOR_BLACK);
-	printf("Welcome! I'm a super advanced operational system with lots of features.\n\n");
-	printf("Last build - date: %s - time: %s\n", date(), time());
+	sprintf(current_version, "%u.%u.%u", V1, V2, V3 + 1);
+	printf("\nPrimusOS - version %s\n", current_version);
+	printf("Last build - date: %s - time: %s\n", __DATE__, __TIME__);
 	printf("Current datetime: ");
 	datetime();
+	printf("\nWelcome!\n\n");
 
 	strcpy(&buffer[strlen(buffer)], "");
 	print_prompt();
-	while (1)
+	while (true)
 	{
 		while (byte = scan())
 		{
@@ -109,6 +117,12 @@ int main(void)
 					printf("\nA Brazilian developer whose name is Leonardo Araujo. Check out his GitHub:\nhttps://github.com/araujo88");
 					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "factorial(") != NULL)
+				{
+					char *parser;
+					parser = strstr(buffer, "factorial(");
+					printf("\n%s", parser);
+				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "clear") == 0)
 				{
 					terminal_initialize(COLOR_LIGHT_GREY, COLOR_BLACK);
@@ -116,11 +130,9 @@ int main(void)
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "time") == 0)
 				{
-					printf("\nTime: %s", time());
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "date") == 0)
 				{
-					printf("\nDate: %s", date());
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "datetime") == 0)
 				{
@@ -137,9 +149,7 @@ int main(void)
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "shutdown") == 0)
 				{
-					outw(0xB004, 0x2000);
-					outw(0x604, 0x2000);
-					outw(0x4004, 0x3400);
+					shutdown();
 				}
 				else if (strlen(buffer) == 0)
 				{

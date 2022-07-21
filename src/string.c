@@ -1,4 +1,8 @@
 #include "../include/string.h"
+#include "../include/limits.h"
+
+#include "stdarg.h"
+#include "stdint.h"
 
 char *ctos(char s[2], const char c)
 {
@@ -278,4 +282,36 @@ int sprintf(char *buf, const char *fmt, ...)
     int ret = vsprintf(buf, fmt, va);
     va_end(va);
     return ret;
+}
+
+uint32_t atoi(const char *str)
+{
+    uint32_t sign = 1, base = 0, i = 0;
+
+    // if whitespaces then ignore.
+    while (str[i] == ' ')
+    {
+        i++;
+    }
+
+    // sign of number
+    if (str[i] == '-' || str[i] == '+')
+    {
+        sign = 1 - 2 * (str[i++] == '-');
+    }
+
+    // checking for valid input
+    while (str[i] >= '0' && str[i] <= '9')
+    {
+        // handling overflow test case
+        if (base > INT_MAX / 10 || (base == INT_MAX / 10 && str[i] - '0' > 7))
+        {
+            if (sign == 1)
+                return INT_MAX;
+            else
+                return INT_MIN;
+        }
+        base = 10 * base + (str[i++] - '0');
+    }
+    return base * sign;
 }

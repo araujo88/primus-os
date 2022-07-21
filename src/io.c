@@ -1,6 +1,13 @@
 #include "../include/io.h"
 #include "../include/tty.h"
 
+void shutdown()
+{
+    outw(0xB004, 0x2000);
+    outw(0x604, 0x2000);
+    outw(0x4004, 0x3400);
+}
+
 void reboot()
 {
     uint8_t temp;
