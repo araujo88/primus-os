@@ -205,6 +205,13 @@ int printf(const char *format, ...)
             sprintf(s, "%d", va_arg(parameters, const char *));
             print(s, strlen(s));
         }
+        else if (*format == 'f')
+        {
+            format++;
+            const char *s;
+            sprintf(s, "%f", va_arg(parameters, const char *));
+            print(s, strlen(s));
+        }
         else if (*format == 's')
         {
             format++;

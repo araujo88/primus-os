@@ -4,16 +4,22 @@
 #include "stdint.h"
 
 uint32_t factorial(uint32_t n);
-uint32_t pow(uint32_t num, uint32_t n);
-double sqrt(double n);
-double sin(double n);
-double cos(double n);
-double tan(double n);
-double asin(double n);
-double acos(double n);
-double atan(double n);
-double exp(double n);
-double log(double n);
-double log10(double n);
+uint32_t pow(uint32_t x, uint32_t n);
+double sqrt(double x);
+double sin(double x);
+double cos(double x);
+double tan(double x);
+double asin(double x);
+double acos(double x);
+double atan(double x);
+double sinh(double x);
+double cosh(double x);
+double tanh(double x);
+double asinh(double x);
+double acosh(double x);
+double atanh(double x);
+double exp(double x);
+double log(double x);
+double log10(double x);
 
 #endif

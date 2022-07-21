@@ -190,6 +190,118 @@ static char *sitoa(char *buf, unsigned int num, int width, enum flag_itoa flags)
     return buf;
 }
 
+#define MAX_PRECISION (10)
+static const double rounders[MAX_PRECISION + 1] =
+    {
+        0.5,          // 0
+        0.05,         // 1
+        0.005,        // 2
+        0.0005,       // 3
+        0.00005,      // 4
+        0.000005,     // 5
+        0.0000005,    // 6
+        0.00000005,   // 7
+        0.000000005,  // 8
+        0.0000000005, // 9
+        0.00000000005 // 10
+};
+
+char *ftoa(char *buf, double f, int precision)
+{
+    char *ptr = buf;
+    char *p = ptr;
+    char *p1;
+    char c;
+    long intPart;
+
+    // check precision bounds
+    if (precision > MAX_PRECISION)
+        precision = MAX_PRECISION;
+
+    // sign stuff
+    if (f < 0)
+    {
+        f = -f;
+        *ptr++ = '-';
+    }
+
+    if (precision < 0) // negative precision == automatic precision guess
+    {
+        if (f < 1.0)
+            precision = 6;
+        else if (f < 10.0)
+            precision = 5;
+        else if (f < 100.0)
+            precision = 4;
+        else if (f < 1000.0)
+            precision = 3;
+        else if (f < 10000.0)
+            precision = 2;
+        else if (f < 100000.0)
+            precision = 1;
+        else
+            precision = 0;
+    }
+
+    // round value according the precision
+    if (precision)
+        f += rounders[precision];
+
+    // integer part...
+    intPart = f;
+    f -= intPart;
+
+    if (!intPart)
+        *ptr++ = '0';
+    else
+    {
+        // save start pointer
+        p = ptr;
+
+        // convert (reverse order)
+        while (intPart)
+        {
+            *p++ = '0' + intPart % 10;
+            intPart /= 10;
+        }
+
+        // save end pos
+        p1 = p;
+
+        // reverse result
+        while (p > ptr)
+        {
+            c = *--p;
+            *p = *ptr;
+            *ptr++ = c;
+        }
+
+        // restore end pos
+        ptr = p1;
+    }
+
+    // decimal part
+    if (precision)
+    {
+        // place decimal point
+        *ptr++ = '.';
+
+        // convert
+        while (precision--)
+        {
+            f *= 10.0;
+            c = f;
+            *ptr++ = '0' + c;
+            f -= c;
+        }
+    }
+
+    // terminating zero
+    *ptr = 0;
+
+    return buf;
+}
+
 int vsprintf(char *buf, const char *fmt, va_list va)
 {
     char c;
@@ -231,6 +343,9 @@ int vsprintf(char *buf, const char *fmt, va_list va)
             break;
         case 'b':
             buf = sitoa(buf, va_arg(va, unsigned int), width, flags | BASE_2);
+            break;
+        case 'f':
+            buf = ftoa(buf, va_arg(va, double), 6);
             break;
         case 's':;
             const char *p = va_arg(va, const char *);
@@ -314,4 +429,38 @@ uint32_t atoi(const char *str)
         base = 10 * base + (str[i++] - '0');
     }
     return base * sign;
+}
+
+double atof(char *str)
+{
+    double val = 0;
+    int afterdot = 0;
+    double scale = 1;
+    int neg = 0;
+
+    if (*str == '-')
+    {
+        str++;
+        neg = 1;
+    }
+    while (*str)
+    {
+        if (afterdot)
+        {
+            scale = scale / 10;
+            val = val + (*str - '0') * scale;
+        }
+        else
+        {
+            if (*str == '.')
+                afterdot++;
+            else
+                val = val * 10.0 + (*str - '0');
+        }
+        str++;
+    }
+    if (neg)
+        return -val;
+    else
+        return val;
 }

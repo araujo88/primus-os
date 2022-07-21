@@ -29,6 +29,10 @@ int main(void)
 	printf("\tCurrent datetime: ");
 	datetime();
 	printf("\n\tWelcome!\n\n");
+	double pi = 3.1415;
+
+	printf("\n%f", pi);
+	printf(ftoa(buffer, pi, 6));
 
 	strcpy(&buffer[strlen(buffer)], "");
 	print_prompt();
@@ -127,6 +131,15 @@ int main(void)
 					parser += strlen("factorial(");
 					num = parse_int(parser, ')');
 					printf("\n%d", factorial(num));
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "sin(") != NULL)
+				{
+					char *parser;
+					float num;
+					parser = strstr(buffer, "sin(");
+					parser += strlen("sin(");
+					num = parse_float(parser, ')');
+					printf("\n%f", sin(num));
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "pow(") != NULL)
 				{
