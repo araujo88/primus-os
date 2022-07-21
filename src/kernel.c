@@ -5,9 +5,11 @@
 #include "../include/string.h"
 #include "../include/datetime.h"
 #include "../include/math.h"
-#include "../include/math_shell.h"
+#include "../include/parsing.h"
 #include "../include/bool.h"
 #include "../include/limits.h"
+#include "../include/sha224.h"
+#include "../include/sha256.h"
 
 #define BUFFER_SIZE 1024
 
@@ -124,6 +126,24 @@ int main(void)
 					printf("\nA Brazilian developer whose name is Leonardo Araujo. Check out his GitHub:\nhttps://github.com/araujo88");
 					terminal_set_colors(default_font_color, COLOR_BLACK);
 				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "sha256(") != NULL)
+				{
+					char *parser;
+					char string[64];
+					parser = strstr(buffer, "sha256(");
+					parser += strlen("sha256(");
+					parse_string(string, parser, ')');
+					sha256(string);
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "sha224(") != NULL)
+				{
+					char *parser;
+					char string[64];
+					parser = strstr(buffer, "sha224(");
+					parser += strlen("sha224(");
+					parse_string(string, parser, ')');
+					sha224(string);
+				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "fact(") != NULL)
 				{
 					char *parser;
@@ -222,7 +242,12 @@ int main(void)
 					printf("\n\t sin(x)             - \tcomputes sine of x");
 					printf("\n\t cos(x)             - \tcomputes cosine of x");
 					printf("\n\t tan(x)             - \tcomputes tangent of x");
-					printf("\n\t fact(x)            - \tcomputes factorial of x\n");
+					printf("\n\t fact(x)            - \tcomputes factorial of x");
+					printf("\n\nCryptographic functions:\n");
+					printf("\n\t md5(string)        - \tMD5 hashing");
+					printf("\n\t sha224(string)     - \tSHA-224 hashing");
+					printf("\n\t sha256(string)     - \tSHA-256 hashing");
+					printf("\n");
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "about") == 0)
 				{
