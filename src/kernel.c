@@ -5,6 +5,7 @@
 #include "../include/string.h"
 #include "../include/datetime.h"
 #include "../include/math.h"
+#include "../include/math_shell.h"
 
 #define BUFFER_SIZE 1024
 
@@ -20,13 +21,17 @@ int main(void)
 	int command_size = 0;
 	uint8_t byte;
 
+	outw(0xB8000, 12);
+
 	terminal_initialize(COLOR_LIGHT_GREY, COLOR_BLACK);
 	sprintf(current_version, "%u.%u.%u", V1, V2, V3 + 1);
-	printf("\nPrimusOS - version %s\n", current_version);
-	printf("Last build - date: %s - time: %s\n", __DATE__, __TIME__);
-	printf("Current datetime: ");
+	printf("\n\tPrimusOS - version %s\n", current_version);
+	printf("\tLast build - date: %s - time: %s\n", __DATE__, __TIME__);
+	printf("\tGitHub repository: https://github.com/araujo88/primus-os\n");
+	printf("\tType \"help\" for a list of commands.\n\n");
+	printf("\tCurrent datetime: ");
 	datetime();
-	printf("\nWelcome!\n\n");
+	printf("\n\tWelcome!\n\n");
 
 	strcpy(&buffer[strlen(buffer)], "");
 	print_prompt();
@@ -120,8 +125,11 @@ int main(void)
 				else if (strlen(buffer) > 0 && strstr(buffer, "factorial(") != NULL)
 				{
 					char *parser;
+					uint32_t num;
 					parser = strstr(buffer, "factorial(");
-					printf("\n%s", parser);
+					parser += strlen("factorial(");
+					num = parse_int(parser);
+					printf("\n%d", factorial(num));
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "clear") == 0)
 				{
@@ -178,7 +186,27 @@ int main(void)
 			}
 			else
 			{
-				char c = normalmap[byte];
+				char c1 = togglecode[byte];
+				char c;
+				if (c1 == CAPSLOCK)
+				{
+					if (!capslock)
+					{
+						capslock = true;
+					}
+					else
+					{
+						capslock = false;
+					}
+				}
+				if (!capslock)
+				{
+					c = normalmap[byte];
+				}
+				else
+				{
+					c = capslockmap[byte];
+				}
 				char *s;
 				s = ctos(s, c);
 				printf("%s", s);
