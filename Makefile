@@ -25,26 +25,26 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.asm
 	nasm -f elf32 -o $@ $<
 
-my-first-os.bin: $(SRC_DIR)/linker.ld $(OBJ_FILES1) $(OBJ_FILES2) $(OBJ_FILES3)
+primus-os.bin: $(SRC_DIR)/linker.ld $(OBJ_FILES1) $(OBJ_FILES2) $(OBJ_FILES3)
 	ld $(LDPARAMS) -T $< -o $@ $(OBJ_DIR)/*.o
 
-my-first-os.iso: my-first-os.bin
+primus-os.iso: primus-os.bin
 	mkdir iso
 	mkdir iso/boot
 	mkdir iso/boot/grub
-	cp my-first-os.bin iso/boot/my-first-os.bin
+	cp primus-os.bin iso/boot/primus-os.bin
 	echo 'set timeout=0'                      > iso/boot/grub/grub.cfg
 	echo 'set default=0'                     >> iso/boot/grub/grub.cfg
 	echo ''                                  >> iso/boot/grub/grub.cfg
 	echo 'menuentry "My Operating System" {' >> iso/boot/grub/grub.cfg
-	echo '  multiboot /boot/my-first-os.bin' >> iso/boot/grub/grub.cfg
+	echo '  multiboot /boot/primus-os.bin' >> iso/boot/grub/grub.cfg
 	echo '  boot'                            >> iso/boot/grub/grub.cfg
 	echo '}'                                 >> iso/boot/grub/grub.cfg
-	grub-mkrescue --output=my-first-os.iso iso
+	grub-mkrescue --output=primus-os.iso iso
 	rm -rf iso
 
-install: my-first-os.bin
-	sudo cp $< /boot/my-first-os.bin
+install: primus-os.bin
+	sudo cp $< /boot/primus-os.bin
 
 clean:
-	rm -f *.o my-first-os my-first-os.iso my-first-os.bin $(OBJ_DIR)/*.o
+	rm -f *.o primus-os primus-os.iso primus-os.bin $(OBJ_DIR)/*.o

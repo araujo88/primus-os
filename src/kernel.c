@@ -16,8 +16,8 @@ int main(void)
 
 	terminal_initialize(COLOR_LIGHT_GREY, COLOR_BLACK);
 	printf("Welcome! I'm a super advanced operational system with lots of features.\n\n");
-	printf("Date: %s\n", date());
-	printf("Time: %s\n", time());
+	printf("Last build - date: %s - time: %s\n", date(), time());
+	printf("Current datetime: ");
 	datetime();
 
 	strcpy(&buffer[strlen(buffer)], "");
@@ -36,10 +36,16 @@ int main(void)
 				{
 					printf("\nHi!");
 				}
-				else if (strlen(buffer) > 0 && strcmp(buffer, "fuck you") == 0)
+				else if (strlen(buffer) > 0 && strstr(buffer, "fuck") != NULL)
 				{
 					terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
 					printf("\nWatch your language scumbag. I'll shutdown when you least are expecting ;)");
+					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "joke") != NULL)
+				{
+					terminal_set_colors(COLOR_LIGHT_BROWN, COLOR_BLACK);
+					printf("\nWhy are PHP developers rich? They see dollar signs all the time ... :D");
 					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "sing me a song") == 0)
@@ -91,7 +97,7 @@ int main(void)
 					printf("\nNot yet! Maybe I'll become sentient one day? Who knows ...");
 					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "taxation is") != NULL)
+				else if (strlen(buffer) > 0 && strstr(buffer, "taxation") != NULL)
 				{
 					terminal_set_colors(COLOR_LIGHT_BROWN, COLOR_BLACK);
 					printf("\nTaxation is theft!");
@@ -118,8 +124,8 @@ int main(void)
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "datetime") == 0)
 				{
-					printf("\nDate: %s", date());
-					printf("\nTime: %s", time());
+					printf("\nCurrent datetime: ");
+					datetime();
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "reboot") == 0)
 				{

@@ -1,8 +1,8 @@
-# my-first-os
+# PrimusOS
 
-My first operating system written in Assembly x86 and C
+A simple bare-bones 32-bit operating system written in Assembly x86 and C for educational purposes.
 
-## Bootloader
+## Bootloader "hello world" example
 
 ### Compile bootloader
 
@@ -12,10 +12,11 @@ nasm -o bootloader.bin bootloader.asm
 
 qemu-system-x86_64 bootloader.bin
 
-## Compiling the kernel
+## Compiling the kernel example
 
 gcc -c kernel.c -o kernel -ffreestanding -m32
 
 ## Generating the ISO image
 
-make my-first-os.iso
+`make clean` <br>
+`make my-first-os.iso`
