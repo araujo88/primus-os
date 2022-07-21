@@ -3,14 +3,15 @@
 
 #include "stdint.h"
 
-uint32_t parse_int(char *string)
+uint32_t parse_int(char *string, char c)
 {
-    uint32_t i;
-    char *parser = 0;
-    while (string[i] != ')')
+    uint32_t i = 0;
+    char parser[1024] = "";
+
+    while (string[i] != c)
     {
-        strcat(parser, string[i]);
+        parser[i] = string[i];
+        i++;
     }
-    strcat(parser, '\0');
     return atoi(parser);
 }

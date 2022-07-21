@@ -18,10 +18,7 @@ char current_version[7];
 int main(void)
 {
 	char buffer[BUFFER_SIZE];
-	int command_size = 0;
 	uint8_t byte;
-
-	outw(0xB8000, 12);
 
 	terminal_initialize(COLOR_LIGHT_GREY, COLOR_BLACK);
 	sprintf(current_version, "%u.%u.%u", V1, V2, V3 + 1);
@@ -128,8 +125,24 @@ int main(void)
 					uint32_t num;
 					parser = strstr(buffer, "factorial(");
 					parser += strlen("factorial(");
-					num = parse_int(parser);
+					num = parse_int(parser, ')');
 					printf("\n%d", factorial(num));
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "pow(") != NULL)
+				{
+					char *parser;
+					uint32_t num;
+					uint32_t n;
+					parser = strstr(buffer, "pow(");
+					parser += strlen("pow(");
+					num = parse_int(parser, ',');
+					while (parser[0] != ',')
+					{
+						parser++;
+					}
+					parser++;
+					n = parse_int(parser, ')');
+					printf("\n%d", pow(num, n));
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "clear") == 0)
 				{
@@ -187,6 +200,7 @@ int main(void)
 			else
 			{
 				char c1 = togglecode[byte];
+				char c2 = shiftcode[byte];
 				char c;
 				if (c1 == CAPSLOCK)
 				{
@@ -199,22 +213,30 @@ int main(void)
 						capslock = false;
 					}
 				}
-				if (!capslock)
+				if (capslock)
 				{
-					c = normalmap[byte];
+					c = capslockmap[byte];
+				}
+				else if (shift)
+				{
+					c = shiftmap[byte];
+					shift = false;
 				}
 				else
 				{
-					c = capslockmap[byte];
+					c = normalmap[byte];
 				}
 				char *s;
 				s = ctos(s, c);
 				printf("%s", s);
 				strcpy(&buffer[strlen(buffer)], s);
+				if (byte == 0x2A || byte == 0x36)
+				{
+					shift = true;
+				}
 			}
 			move_cursor(get_terminal_row(), get_terminal_col());
 		}
-		command_size = 0;
 	}
 	return 0;
 }

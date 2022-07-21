@@ -201,8 +201,9 @@ int printf(const char *format, ...)
         else if (*format == 'd')
         {
             format++;
-            int d = (int)va_arg(parameters, int /* char promotes to int */);
-            print((char *)&d, sizeof(d));
+            const char *s;
+            sprintf(s, "%d", va_arg(parameters, const char *));
+            print(s, strlen(s));
         }
         else if (*format == 's')
         {
