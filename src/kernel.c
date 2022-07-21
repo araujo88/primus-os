@@ -7,6 +7,7 @@
 #include "../include/math.h"
 #include "../include/math_shell.h"
 #include "../include/bool.h"
+#include "../include/limits.h"
 
 #define BUFFER_SIZE 1024
 
@@ -23,6 +24,7 @@ int main(void)
 	uint8_t byte;
 
 	terminal_initialize(COLOR_LIGHT_GREY, COLOR_BLACK);
+	terminal_set_colors(COLOR_LIGHT_GREEN, COLOR_BLACK);
 	sprintf(current_version, "%u.%u.%u", V1, V2, V3 + 1);
 	printf("\n\tPrimusOS - version %s\n", current_version);
 	printf("\tLast build - date: %s - time: %s\n", __DATE__, __TIME__);
@@ -31,11 +33,7 @@ int main(void)
 	printf("\tCurrent datetime: ");
 	datetime();
 	printf("\n\tWelcome!\n\n");
-	double pi = 3.1415;
-	int num = 1;
-
-	printf("%d %f\n\n", num, pi);
-	printf(ftoa(string, pi, 6));
+	terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 
 	strcpy(&buffer[strlen(buffer)], "");
 	print_prompt();
@@ -133,7 +131,36 @@ int main(void)
 					parser = strstr(buffer, "factorial(");
 					parser += strlen("factorial(");
 					num = parse_int(parser, ')');
-					printf("\n%d", factorial(num));
+					if (num != NULL)
+					{
+						printf("\n%d", fact(num));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "sqrt(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					float num;
+					parser = strstr(buffer, "sqrt(");
+					parser += strlen("sqrt(");
+					num = parse_float(parser, ')');
+					if (num != FLOAT_MIN)
+					{
+						printf("\n");
+						printf(ftoa(buff, sqrt(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+					}
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "sin(") != NULL)
 				{
@@ -143,8 +170,17 @@ int main(void)
 					parser = strstr(buffer, "sin(");
 					parser += strlen("sin(");
 					num = parse_float(parser, ')');
-					printf("\n");
-					printf(ftoa(buff, sin(num), 6));
+					if (num != FLOAT_MIN)
+					{
+						printf("\n");
+						printf(ftoa(buff, sin(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+					}
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "pow(") != NULL)
 				{
@@ -154,13 +190,39 @@ int main(void)
 					parser = strstr(buffer, "pow(");
 					parser += strlen("pow(");
 					num = parse_int(parser, ',');
-					while (parser[0] != ',')
+					if (num != FLOAT_MIN)
 					{
+						while (parser[0] != ',')
+						{
+							parser++;
+						}
 						parser++;
+						n = parse_int(parser, ')');
+						printf("\n%d", pow(num, n));
 					}
-					parser++;
-					n = parse_int(parser, ')');
-					printf("\n%d", pow(num, n));
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strcmp(buffer, "help") == 0)
+				{
+					terminal_set_colors(COLOR_LIGHT_GREEN, COLOR_BLACK);
+					printf("\n\n\tBasic kernel commands:\n");
+					printf("\n\t clear       - \tclears the screen");
+					printf("\n\t datetime    - \tdisplays current date and time");
+					printf("\n\t reboot      - \treboots system");
+					printf("\n\t shutdown    - \tsends shutdown signal");
+					printf("\n\n\tMathematical functions:\n");
+					printf("\n\t sqrt(x)     - \tcomputes square root of x");
+					printf("\n\t inv_sqrt(x) - \tcomputes inverse square root of x");
+					printf("\n\t sin(x)      - \tcomputes sine of x");
+					printf("\n\t cos(x)      - \tcomputes cosine of x");
+					printf("\n\t tan(x)      - \tcomputes tangent of x");
+					printf("\n\t fact(x)     - \tcomputes factorial of x\n");
+					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "clear") == 0)
 				{
@@ -182,10 +244,6 @@ int main(void)
 				{
 					reboot();
 				}
-				else if (strlen(buffer) > 0 && strcmp(buffer, "restart") == 0)
-				{
-					reboot();
-				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "shutdown") == 0)
 				{
 					shutdown();
@@ -195,10 +253,7 @@ int main(void)
 				}
 				else
 				{
-					printf("\n'%s' is an unrecognized command. ", buffer);
-					terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-					printf("Are you stupid?", buffer);
-					terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+					printf("\n'%s' is not a recognized command. ", buffer);
 				}
 				print_prompt();
 				memset(buffer, 0, BUFFER_SIZE);

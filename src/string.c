@@ -173,9 +173,9 @@ char *tolower(char *string)
     return string;
 }
 
-static char *sitoa(char *buf, unsigned int num, int width, enum flag_itoa flags)
+static char *sitoa(char *buf, uint32_t num, int width, enum flag_itoa flags)
 {
-    unsigned int base;
+    uint32_t base;
     if (flags & BASE_2)
         base = 2;
     else if (flags & BASE_10)
@@ -206,13 +206,13 @@ static char *sitoa(char *buf, unsigned int num, int width, enum flag_itoa flags)
     return buf;
 }
 
-char *ftoa(char *buf, double f, int precision)
+char *ftoa(char *buf, float f, int precision)
 {
     char *ptr = buf;
     char *p = ptr;
     char *p1;
     char c;
-    long intPart;
+    uint32_t intPart;
 
     // check precision bounds
     if (precision > MAX_PRECISION)
@@ -431,11 +431,11 @@ uint32_t atoi(const char *str)
     return base * sign;
 }
 
-double atof(char *str)
+float atof(char *str)
 {
-    double val = 0;
+    float val = 0;
     int afterdot = 0;
-    double scale = 1;
+    float scale = 1;
     int neg = 0;
 
     if (*str == '-')

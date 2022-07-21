@@ -1,5 +1,6 @@
 #include "../include/math_shell.h"
 #include "../include/string.h"
+#include "../include/limits.h"
 
 #include "stdint.h"
 
@@ -12,11 +13,15 @@ uint32_t parse_int(char *string, char c)
     {
         parser[i] = string[i];
         i++;
+        if (string[i] == '\0')
+        {
+            return NULL;
+        }
     }
     return atoi(parser);
 }
 
-double parse_float(char *string, char c)
+float parse_float(char *string, char c)
 {
     uint32_t i = 0;
     char parser[1024] = "";
@@ -25,6 +30,10 @@ double parse_float(char *string, char c)
     {
         parser[i] = string[i];
         i++;
+        if (string[i] == '\0')
+        {
+            return FLOAT_MIN;
+        }
     }
     return atof(parser);
 }

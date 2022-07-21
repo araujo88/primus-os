@@ -4,6 +4,6 @@
 #include "stdint.h"
 
 uint32_t parse_int(char *string, char c);
-double parse_float(char *string, char c);
+float parse_float(char *string, char c);
 
 #endif
