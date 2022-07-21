@@ -266,6 +266,7 @@ int main(void)
 				}
 				print_prompt();
 				memset(buffer, 0, BUFFER_SIZE);
+				strcpy(&buffer[strlen(buffer)], "");
 				break;
 			}
 			else if ((byte == BACKSPACE) && (strlen(buffer) == 0))

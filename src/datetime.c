@@ -49,35 +49,38 @@ void datetime()
     uint32_t day;
     uint32_t month;
     uint32_t year;
-    char *current_time;
+    char current_time[22] = "";
     uint32_t registerB;
 
+    memset(current_time, 0, strlen(current_time));
+
+start:
     while (get_update_in_progress_flag())
     {
     }
 
     seconds = CMOS_RTC_SECONDS;
-    output_bytes(RTCaddress, NMI_DISABLE_BIT << 7 | seconds);
+    output_bytes(RTCaddress, seconds);
     seconds = input_bytes(RTCdata);
 
     minutes = CMOS_RTC_MINUTES;
-    output_bytes(RTCaddress, NMI_DISABLE_BIT << 7 | minutes);
+    output_bytes(RTCaddress, minutes);
     minutes = input_bytes(RTCdata);
 
     hours = CMOS_RTC_HOURS;
-    output_bytes(RTCaddress, NMI_DISABLE_BIT << 7 | hours);
+    output_bytes(RTCaddress, hours);
     hours = input_bytes(RTCdata);
 
     day = CMOS_RTC_DAY_MONTH;
-    output_bytes(RTCaddress, NMI_DISABLE_BIT << 7 | day);
+    output_bytes(RTCaddress, day);
     day = input_bytes(RTCdata);
 
     month = CMOS_RTC_MONTH;
-    output_bytes(RTCaddress, NMI_DISABLE_BIT << 7 | month);
+    output_bytes(RTCaddress, month);
     month = input_bytes(RTCdata);
 
     year = CMOS_RTC_YEAR;
-    output_bytes(RTCaddress, NMI_DISABLE_BIT << 7 | year);
+    output_bytes(RTCaddress, year);
     year = input_bytes(RTCdata);
 
     registerB = get_RTC_register(0x80);
@@ -105,6 +108,11 @@ void datetime()
     year += (CURRENT_YEAR / 100) * 100;
     if (year < CURRENT_YEAR)
         year += 100;
+
+    if (year != CURRENT_YEAR)
+    {
+        goto start;
+    }
 
     sprintf(current_time, "%u:%u:%u - %u/%u/%u", hours, minutes, seconds, day, month, year);
     printf("%s\n", current_time);
