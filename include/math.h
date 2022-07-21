@@ -4,7 +4,7 @@
 #include "stdint.h"
 
 uint32_t factorial(uint32_t n);
-uint32_t pow(uint32_t x, uint32_t n);
+double pow(double x, uint32_t n);
 double sqrt(double x);
 double sin(double x);
 double cos(double x);

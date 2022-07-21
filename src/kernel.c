@@ -6,6 +6,7 @@
 #include "../include/datetime.h"
 #include "../include/math.h"
 #include "../include/math_shell.h"
+#include "../include/bool.h"
 
 #define BUFFER_SIZE 1024
 
@@ -18,6 +19,7 @@ char current_version[7];
 int main(void)
 {
 	char buffer[BUFFER_SIZE];
+	char *string;
 	uint8_t byte;
 
 	terminal_initialize(COLOR_LIGHT_GREY, COLOR_BLACK);
@@ -30,9 +32,10 @@ int main(void)
 	datetime();
 	printf("\n\tWelcome!\n\n");
 	double pi = 3.1415;
+	int num = 1;
 
-	printf("\n%f", pi);
-	printf(ftoa(buffer, pi, 6));
+	printf("%d %f\n\n", num, pi);
+	printf(ftoa(string, pi, 6));
 
 	strcpy(&buffer[strlen(buffer)], "");
 	print_prompt();
@@ -135,11 +138,13 @@ int main(void)
 				else if (strlen(buffer) > 0 && strstr(buffer, "sin(") != NULL)
 				{
 					char *parser;
+					char *buff;
 					float num;
 					parser = strstr(buffer, "sin(");
 					parser += strlen("sin(");
 					num = parse_float(parser, ')');
-					printf("\n%f", sin(num));
+					printf("\n");
+					printf(ftoa(buff, sin(num), 6));
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "pow(") != NULL)
 				{

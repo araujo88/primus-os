@@ -4,9 +4,6 @@
 #include "stdint.h"
 #include "tty.h"
 
-#define true 1
-#define false 0
-
 /* The I/O ports */
 #define FB_COMMAND_PORT 0x3d4
 #define FB_DATA_PORT 0x3d5

@@ -4,6 +4,22 @@
 #include "stdarg.h"
 #include "stdint.h"
 
+#define MAX_PRECISION (10)
+static const double rounders[MAX_PRECISION + 1] =
+    {
+        0.5,          // 0
+        0.05,         // 1
+        0.005,        // 2
+        0.0005,       // 3
+        0.00005,      // 4
+        0.000005,     // 5
+        0.0000005,    // 6
+        0.00000005,   // 7
+        0.000000005,  // 8
+        0.0000000005, // 9
+        0.00000000005 // 10
+};
+
 char *ctos(char s[2], const char c)
 {
     s[0] = c;
@@ -189,22 +205,6 @@ static char *sitoa(char *buf, unsigned int num, int width, enum flag_itoa flags)
     while (tmp < p);
     return buf;
 }
-
-#define MAX_PRECISION (10)
-static const double rounders[MAX_PRECISION + 1] =
-    {
-        0.5,          // 0
-        0.05,         // 1
-        0.005,        // 2
-        0.0005,       // 3
-        0.00005,      // 4
-        0.000005,     // 5
-        0.0000005,    // 6
-        0.00000005,   // 7
-        0.000000005,  // 8
-        0.0000000005, // 9
-        0.00000000005 // 10
-};
 
 char *ftoa(char *buf, double f, int precision)
 {
