@@ -19,4 +19,4 @@ gcc -c kernel.c -o kernel -ffreestanding -m32
 ## Generating the ISO image
 
 `make clean` <br>
-`make my-first-os.iso`
+`make primus-os.iso`
