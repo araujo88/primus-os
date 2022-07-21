@@ -2,18 +2,14 @@
 
 uint32_t factorial(uint32_t n)
 {
-    if (n == 0)
+    uint32_t i, fact = 1;
+
+    for (i = 1; i <= n; i++)
     {
-        return 1;
+        fact = fact * i;
     }
-    else if (n == 1)
-    {
-        return 1;
-    }
-    else
-    {
-        return n * factorial(n - 1);
-    }
+
+    return fact;
 }
 
 uint32_t pow(uint32_t num, uint32_t n)
