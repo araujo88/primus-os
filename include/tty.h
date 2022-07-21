@@ -34,5 +34,7 @@ int printf(const char *format, ...);
 int get_terminal_row(void);
 int get_terminal_col(void);
 void term_putc(char c, enum vga_color char_color);
+enum vga_color change_font_color();
+void change_background_color();
 
 #endif

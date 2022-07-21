@@ -1,11 +1,16 @@
 #include "../include/tty.h"
 #include "../include/string.h"
+#include "../include/io.h"
+#include "../include/bool.h"
+#include "../include/kbd.h"
 
 size_t terminal_row;
 size_t terminal_column;
 static uint16_t *const VGA_MEMORY = (uint16_t *)0xb8000;
 uint8_t terminal_color;
 uint16_t *terminal_buffer;
+
+#define BUFFER_SIZE 1024
 
 static inline uint8_t make_color(enum vga_color fg, enum vga_color bg)
 {
@@ -251,4 +256,182 @@ void terminal_set_colors(enum vga_color font_color, enum vga_color background_co
     //         terminal_buffer[index] = make_vgaentry('\0', terminal_color);
     //     }
     // }
+}
+
+enum vga_color change_font_color()
+{
+    enum vga_color font_color;
+    char buffer[BUFFER_SIZE];
+    uint8_t byte;
+    uint32_t color;
+
+    memset(buffer, 0, BUFFER_SIZE);
+    strcpy(&buffer[strlen(buffer)], "");
+
+    printf("\nPlease select a font color. Valid options are:\n");
+    terminal_set_colors(COLOR_BLUE, COLOR_BLACK);
+    printf("\nCOLOR_BLUE = 1");
+    terminal_set_colors(COLOR_GREEN, COLOR_BLACK);
+    printf("\nCOLOR_GREEN = 2");
+    terminal_set_colors(COLOR_CYAN, COLOR_BLACK);
+    printf("\nCOLOR_CYAN = 3");
+    terminal_set_colors(COLOR_RED, COLOR_BLACK);
+    printf("\nCOLOR_RED = 4");
+    terminal_set_colors(COLOR_MAGENTA, COLOR_BLACK);
+    printf("\nCOLOR_MAGENTA = 5");
+    terminal_set_colors(COLOR_BROWN, COLOR_BLACK);
+    printf("\nCOLOR_BROWN = 6");
+    terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+    printf("\nCOLOR_LIGHT_GREY = 7");
+    terminal_set_colors(COLOR_DARK_GREY, COLOR_BLACK);
+    printf("\nCOLOR_DARK_GREY = 8");
+    terminal_set_colors(COLOR_LIGHT_BLUE, COLOR_BLACK);
+    printf("\nCOLOR_LIGHT_BLUE = 9");
+    terminal_set_colors(COLOR_LIGHT_GREEN, COLOR_BLACK);
+    printf("\nCOLOR_LIGHT_GREEN = 10");
+    terminal_set_colors(COLOR_LIGHT_CYAN, COLOR_BLACK);
+    printf("\nCOLOR_LIGHT_CYAN = 11");
+    terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+    printf("\nCOLOR_LIGHT_RED = 12");
+    terminal_set_colors(COLOR_LIGHT_MAGENTA, COLOR_BLACK);
+    printf("\nCOLOR_LIGHT_MAGENTA = 13");
+    terminal_set_colors(COLOR_LIGHT_BROWN, COLOR_BLACK);
+    printf("\nCOLOR_LIGHT_BROWN = 14");
+    terminal_set_colors(COLOR_WHITE, COLOR_BLACK);
+    printf("\nCOLOR_WHITE = 15\n");
+    terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+    print_prompt();
+
+    while (true)
+    {
+        while (byte = scan())
+        {
+            if (byte == ENTER)
+            {
+                switch (color)
+                {
+                case 1:
+                    terminal_set_colors(COLOR_BLUE, COLOR_BLACK);
+                    font_color = COLOR_BLUE;
+                    return font_color;
+                    break;
+                case 2:
+                    terminal_set_colors(COLOR_GREEN, COLOR_BLACK);
+                    font_color = COLOR_GREEN;
+                    return font_color;
+                    break;
+                case 3:
+                    terminal_set_colors(COLOR_CYAN, COLOR_BLACK);
+                    font_color = COLOR_CYAN;
+                    return font_color;
+                    break;
+                case 4:
+                    terminal_set_colors(COLOR_RED, COLOR_BLACK);
+                    font_color = COLOR_RED;
+                    return font_color;
+                    break;
+                case 5:
+                    terminal_set_colors(COLOR_MAGENTA, COLOR_BLACK);
+                    font_color = COLOR_MAGENTA;
+                    return font_color;
+                    break;
+                case 6:
+                    terminal_set_colors(COLOR_BROWN, COLOR_BLACK);
+                    font_color = COLOR_BROWN;
+                    return font_color;
+                    break;
+                case 7:
+                    terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+                    font_color = COLOR_LIGHT_GREY;
+                    return font_color;
+                    break;
+                case 8:
+                    terminal_set_colors(COLOR_DARK_GREY, COLOR_BLACK);
+                    font_color = COLOR_DARK_GREY;
+                    return font_color;
+                    break;
+                case 9:
+                    terminal_set_colors(COLOR_LIGHT_BLUE, COLOR_BLACK);
+                    font_color = COLOR_LIGHT_BLUE;
+                    return font_color;
+                    break;
+                case 10:
+                    terminal_set_colors(COLOR_LIGHT_GREEN, COLOR_BLACK);
+                    font_color = COLOR_LIGHT_GREEN;
+                    return font_color;
+                    break;
+                case 11:
+                    terminal_set_colors(COLOR_LIGHT_CYAN, COLOR_BLACK);
+                    font_color = COLOR_LIGHT_CYAN;
+                    return font_color;
+                    break;
+                case 12:
+                    terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+                    font_color = COLOR_LIGHT_RED;
+                    return font_color;
+                    break;
+                case 13:
+                    terminal_set_colors(COLOR_LIGHT_MAGENTA, COLOR_BLACK);
+                    font_color = COLOR_LIGHT_MAGENTA;
+                    return font_color;
+                    break;
+                case 14:
+                    terminal_set_colors(COLOR_LIGHT_BROWN, COLOR_BLACK);
+                    font_color = COLOR_LIGHT_BROWN;
+                    return font_color;
+                    break;
+                case 15:
+                    terminal_set_colors(COLOR_WHITE, COLOR_BLACK);
+                    font_color = COLOR_WHITE;
+                    return font_color;
+                    break;
+                default:
+                    printf("\nPlease select a font color. Valid options are:\n");
+                    terminal_set_colors(COLOR_BLUE, COLOR_BLACK);
+                    printf("\nCOLOR_BLUE = 1");
+                    terminal_set_colors(COLOR_GREEN, COLOR_BLACK);
+                    printf("\nCOLOR_GREEN = 2");
+                    terminal_set_colors(COLOR_CYAN, COLOR_BLACK);
+                    printf("\nCOLOR_CYAN = 3");
+                    terminal_set_colors(COLOR_RED, COLOR_BLACK);
+                    printf("\nCOLOR_RED = 4");
+                    terminal_set_colors(COLOR_MAGENTA, COLOR_BLACK);
+                    printf("\nCOLOR_MAGENTA = 5");
+                    terminal_set_colors(COLOR_BROWN, COLOR_BLACK);
+                    printf("\nCOLOR_BROWN = 6");
+                    terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+                    printf("\nCOLOR_LIGHT_GREY = 7");
+                    terminal_set_colors(COLOR_DARK_GREY, COLOR_BLACK);
+                    printf("\nCOLOR_DARK_GREY = 8");
+                    terminal_set_colors(COLOR_LIGHT_BLUE, COLOR_BLACK);
+                    printf("\nCOLOR_LIGHT_BLUE = 9");
+                    terminal_set_colors(COLOR_LIGHT_GREEN, COLOR_BLACK);
+                    printf("\nCOLOR_LIGHT_GREEN = 10");
+                    terminal_set_colors(COLOR_LIGHT_CYAN, COLOR_BLACK);
+                    printf("\nCOLOR_LIGHT_CYAN = 11");
+                    terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+                    printf("\nCOLOR_LIGHT_RED = 12");
+                    terminal_set_colors(COLOR_LIGHT_MAGENTA, COLOR_BLACK);
+                    printf("\nCOLOR_LIGHT_MAGENTA = 13");
+                    terminal_set_colors(COLOR_LIGHT_BROWN, COLOR_BLACK);
+                    printf("\nCOLOR_LIGHT_BROWN = 14");
+                    terminal_set_colors(COLOR_WHITE, COLOR_BLACK);
+                    printf("\nCOLOR_WHITE = 15\n");
+                    terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+                    memset(buffer, 0, BUFFER_SIZE);
+                    print_prompt();
+                }
+            }
+            else
+            {
+                char *s;
+                char c = normalmap[byte];
+                s = ctos(s, c);
+                printf("%s", s);
+                strcpy(&buffer[strlen(buffer)], s);
+                color = atoi(buffer);
+            }
+            move_cursor(get_terminal_row(), get_terminal_col());
+        }
+    }
 }

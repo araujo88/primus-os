@@ -106,6 +106,6 @@ void datetime()
     if (year < CURRENT_YEAR)
         year += 100;
 
-    sprintf(current_time, "%u:%u:%u - %u/%u/%u", seconds, minutes, hours, day, month, year);
+    sprintf(current_time, "%u:%u:%u - %u/%u/%u", hours, minutes, seconds, day, month, year);
     printf("%s\n", current_time);
 }
