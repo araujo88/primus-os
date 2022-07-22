@@ -21,7 +21,7 @@ uint32_t parse_int(char *string, char c)
     return atoi(parser);
 }
 
-float parse_float(char *string, char c)
+double parse_float(char *string, char c)
 {
     uint32_t i = 0;
     char parser[1024] = "";

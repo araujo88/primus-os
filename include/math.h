@@ -3,6 +3,8 @@
 
 #include "stdint.h"
 
+#define PI 3.14159265358979323846
+
 uint32_t fact(uint32_t n);
 double pow(double x, uint32_t n);
 float sqrt(float x);

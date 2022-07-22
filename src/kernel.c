@@ -166,7 +166,7 @@ int main(void)
 				{
 					char *parser;
 					char *buff;
-					float num;
+					double num;
 					parser = strstr(buffer, "sqrt(");
 					parser += strlen("sqrt(");
 					num = parse_float(parser, ')');
@@ -186,7 +186,7 @@ int main(void)
 				{
 					char *parser;
 					char *buff;
-					float num;
+					double num;
 					parser = strstr(buffer, "sin(");
 					parser += strlen("sin(");
 					num = parse_float(parser, ')');
@@ -206,7 +206,7 @@ int main(void)
 				{
 					char *parser;
 					char *buff;
-					float num;
+					double num;
 					parser = strstr(buffer, "cos(");
 					parser += strlen("cos(");
 					num = parse_float(parser, ')');
@@ -226,7 +226,7 @@ int main(void)
 				{
 					char *parser;
 					char *buff;
-					float num;
+					double num;
 					parser = strstr(buffer, "tan(");
 					parser += strlen("tan(");
 					num = parse_float(parser, ')');
@@ -245,11 +245,11 @@ int main(void)
 				else if (strlen(buffer) > 0 && strstr(buffer, "pow(") != NULL)
 				{
 					char *parser;
-					uint32_t num;
+					double num;
 					uint32_t n;
 					parser = strstr(buffer, "pow(");
 					parser += strlen("pow(");
-					num = parse_int(parser, ',');
+					num = parse_float(parser, ',');
 					if (num != FLOAT_MIN)
 					{
 						while (parser[0] != ',')
