@@ -5,6 +5,7 @@
 
 #define PI 3.14159265358979323846
 
+float machine_eps(float value);
 uint32_t fact(uint32_t n);
 double pow(double x, uint32_t n);
 float sqrt(float x);

@@ -1,6 +1,20 @@
 #include "../include/math.h"
 #include "../include/bool.h"
 
+typedef union
+{
+    long long i64;
+    float d64;
+} dbl_64;
+
+float machine_eps(float value)
+{
+    dbl_64 s;
+    s.d64 = value;
+    s.i64++;
+    return s.d64 - value;
+}
+
 uint32_t fact(uint32_t n)
 {
     uint32_t i, fact = 1;
@@ -15,13 +29,18 @@ uint32_t fact(uint32_t n)
 
 float inv_sqrt(float x)
 {
+    uint32_t j;
+    uint32_t it = 3; // num of iterations Newton-Raphson
     union
     {
         float f;
         uint32_t i;
     } conv = {.f = x};
     conv.i = 0x5f3759df - (conv.i >> 1);
-    conv.f *= 1.5F - (x * 0.5F * conv.f * conv.f);
+    for (j = 0; j < it; j++)
+    {
+        conv.f *= 1.5F - (x * 0.5F * conv.f * conv.f);
+    }
     return conv.f;
 }
 

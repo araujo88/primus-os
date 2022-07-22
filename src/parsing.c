@@ -32,7 +32,7 @@ double parse_float(char *string, char c)
         i++;
         if (string[i] == '\0')
         {
-            return FLOAT_MIN;
+            return EPS;
         }
     }
     return atof(parser);

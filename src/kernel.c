@@ -24,6 +24,7 @@ int main(void)
 {
 	char buffer[BUFFER_SIZE];
 	char *string;
+	char *buff;
 	uint8_t byte;
 
 	terminal_initialize(default_font_color, COLOR_BLACK);
@@ -35,6 +36,7 @@ int main(void)
 	printf("\tCurrent datetime: ");
 	datetime();
 	printf("\n\tWelcome!\n\n");
+
 	terminal_set_colors(default_font_color, COLOR_BLACK);
 
 	strcpy(&buffer[strlen(buffer)], "");
@@ -45,7 +47,7 @@ int main(void)
 		{
 			if (byte == ENTER)
 			{
-				strcpy(&buffer, tolower(&buffer));
+				strcpy(buffer, tolower(buffer));
 
 				if (strlen(buffer) > 0 && strcmp(buffer, "exit") == 0)
 				{
@@ -153,7 +155,7 @@ int main(void)
 					parser = strstr(buffer, "fact(");
 					parser += strlen("fact(");
 					num = parse_int(parser, ')');
-					if (num != NULL)
+					if (num != (int)NULL)
 					{
 						printf("\n%d", fact(num));
 					}
@@ -172,7 +174,7 @@ int main(void)
 					parser = strstr(buffer, "sqrt(");
 					parser += strlen("sqrt(");
 					num = parse_float(parser, ')');
-					if (num != FLOAT_MIN)
+					if (num != EPS)
 					{
 						printf("\n");
 						printf(ftoa(buff, sqrt(num), 6));
@@ -192,7 +194,7 @@ int main(void)
 					parser = strstr(buffer, "sin(");
 					parser += strlen("sin(");
 					num = parse_float(parser, ')');
-					if (num != FLOAT_MIN)
+					if (num != EPS)
 					{
 						printf("\n");
 						printf(ftoa(buff, sin(num), 6));
@@ -212,7 +214,7 @@ int main(void)
 					parser = strstr(buffer, "cos(");
 					parser += strlen("cos(");
 					num = parse_float(parser, ')');
-					if (num != FLOAT_MIN)
+					if (num != EPS)
 					{
 						printf("\n");
 						printf(ftoa(buff, cos(num), 6));
@@ -232,7 +234,7 @@ int main(void)
 					parser = strstr(buffer, "tan(");
 					parser += strlen("tan(");
 					num = parse_float(parser, ')');
-					if (num != FLOAT_MIN)
+					if (num != EPS)
 					{
 						printf("\n");
 						printf(ftoa(buff, tan(num), 6));
@@ -252,7 +254,7 @@ int main(void)
 					parser = strstr(buffer, "pow(");
 					parser += strlen("pow(");
 					num = parse_float(parser, ',');
-					if (num != FLOAT_MIN)
+					if (num != EPS)
 					{
 						while (parser[0] != ',')
 						{
@@ -269,15 +271,8 @@ int main(void)
 						terminal_set_colors(default_font_color, COLOR_BLACK);
 					}
 				}
-				else if (strlen(buffer) > 0 && strcmp(buffer, "help") == 0)
+				else if (strlen(buffer) > 0 && strcmp(buffer, "math") == 0)
 				{
-					printf("\n\n\tBasic kernel commands:\n");
-					printf("\n\t about              - \tabout PrimusOS");
-					printf("\n\t clear              - \tclears the screen");
-					printf("\n\t fontcolor          - \tchange default font color");
-					printf("\n\t datetime           - \tdisplays current date and time");
-					printf("\n\t reboot             - \treboots system");
-					printf("\n\t shutdown           - \tsends shutdown signal");
 					printf("\n\n\tMathematical functions:\n");
 					printf("\n\t sqrt(x)            - \tcomputes square root of x");
 					printf("\n\t inv_sqrt(x)        - \tcomputes inverse square root of x");
@@ -285,9 +280,26 @@ int main(void)
 					printf("\n\t cos(x)             - \tcomputes cosine of x");
 					printf("\n\t tan(x)             - \tcomputes tangent of x");
 					printf("\n\t fact(x)            - \tcomputes factorial of x");
-					printf("\n\nCryptographic functions:\n");
+					printf("\n");
+				}
+				else if (strlen(buffer) > 0 && strcmp(buffer, "crypto") == 0)
+				{
+					printf("\n\nCryptography utilities:\n");
 					printf("\n\t sha224(string)     - \tSHA-224 hashing");
 					printf("\n\t sha256(string)     - \tSHA-256 hashing");
+					printf("\n");
+				}
+				else if (strlen(buffer) > 0 && strcmp(buffer, "help") == 0)
+				{
+					printf("\n\n\tBasic kernel commands:\n");
+					printf("\n\t about              - \tabout PrimusOS");
+					printf("\n\t math               - \tlists all mathematical functions");
+					printf("\n\t crypto             - \tlists all cryptography utilities");
+					printf("\n\t clear              - \tclears the screen");
+					printf("\n\t fontcolor          - \tchange default font color");
+					printf("\n\t datetime           - \tdisplays current date and time");
+					printf("\n\t reboot             - \treboots system");
+					printf("\n\t shutdown           - \tsends shutdown signal");
 					printf("\n");
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "about") == 0)
