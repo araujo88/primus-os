@@ -45,6 +45,8 @@ int main(void)
 		{
 			if (byte == ENTER)
 			{
+				strcpy(&buffer, tolower(&buffer));
+
 				if (strlen(buffer) > 0 && strcmp(buffer, "exit") == 0)
 				{
 					printf("\nGoodbye!");
