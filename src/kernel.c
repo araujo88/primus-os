@@ -202,6 +202,46 @@ int main(void)
 						terminal_set_colors(default_font_color, COLOR_BLACK);
 					}
 				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "cos(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					float num;
+					parser = strstr(buffer, "cos(");
+					parser += strlen("cos(");
+					num = parse_float(parser, ')');
+					if (num != FLOAT_MIN)
+					{
+						printf("\n");
+						printf(ftoa(buff, cos(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "tan(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					float num;
+					parser = strstr(buffer, "tan(");
+					parser += strlen("tan(");
+					num = parse_float(parser, ')');
+					if (num != FLOAT_MIN)
+					{
+						printf("\n");
+						printf(ftoa(buff, tan(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "pow(") != NULL)
 				{
 					char *parser;
@@ -244,7 +284,6 @@ int main(void)
 					printf("\n\t tan(x)             - \tcomputes tangent of x");
 					printf("\n\t fact(x)            - \tcomputes factorial of x");
 					printf("\n\nCryptographic functions:\n");
-					printf("\n\t md5(string)        - \tMD5 hashing");
 					printf("\n\t sha224(string)     - \tSHA-224 hashing");
 					printf("\n\t sha256(string)     - \tSHA-256 hashing");
 					printf("\n");
