@@ -2,20 +2,33 @@
 #include "../include/bool.h"
 #include "../include/memory.h"
 
+// reference: https://developer.download.nvidia.com/cg/index_stdlib.html
+
+double max(double a, double b)
+{
+    return a > b ? a : b;
+}
+
+double min(double a, double b)
+{
+    return a < b ? a : b;
+}
+
 const int tab32[32] = {
     0, 9, 1, 10, 13, 21, 2, 29,
     11, 14, 16, 18, 22, 25, 3, 30,
     8, 12, 20, 28, 15, 17, 24, 7,
     19, 27, 23, 6, 26, 5, 4, 31};
 
-uint32_t log2(uint32_t value)
+// https://stackoverflow.com/questions/11376288/fast-computing-of-log2-for-64-bit-integers
+uint32_t log2(uint32_t x)
 {
-    value |= value >> 1;
-    value |= value >> 2;
-    value |= value >> 4;
-    value |= value >> 8;
-    value |= value >> 16;
-    return tab32[(uint32_t)(value * 0x07C4ACDD) >> 27];
+    x |= x >> 1;
+    x |= x >> 2;
+    x |= x >> 4;
+    x |= x >> 8;
+    x |= x >> 16;
+    return tab32[(uint32_t)(x * 0x07C4ACDD) >> 27];
 }
 
 typedef union
@@ -24,12 +37,12 @@ typedef union
     double d64;
 } dbl_64;
 
-double machine_eps(double value)
+double machine_eps(double x)
 {
     dbl_64 s;
-    s.d64 = value;
+    s.d64 = x;
     s.i64++;
-    return s.d64 - value;
+    return s.d64 - x;
 }
 
 uint32_t fact(uint32_t n)
@@ -44,9 +57,22 @@ uint32_t fact(uint32_t n)
     return fact;
 }
 
+double abs(double x)
+{
+    if (x < 0)
+    {
+        return -x;
+    }
+    else
+    {
+        return x;
+    }
+}
+
+// https://stackoverflow.com/questions/47025373/fastest-implementation-of-the-natural-exponential-function-using-sse
 double exp(double x) // quartic spline approximation
 {
-
+    static uint32_t it = 0;
     union
     {
         float f;
@@ -57,6 +83,7 @@ double exp(double x) // quartic spline approximation
     int32_t m = (r.i >> 7) & 0xFFFF; // copy mantissa
     // empirical values for small maximum relative error (1.21e-5):
     r.i += (((((((((((3537 * m) >> 16) + 13668) * m) >> 18) + 15817) * m) >> 14) - 80470) * m) >> 11);
+
     return r.f;
 }
 
@@ -66,7 +93,7 @@ double inv_sqrt(double x)
     uint32_t it = 3; // num of iterations Newton-Raphson
     union
     {
-        double f;
+        float f;
         uint32_t i;
     } r = {.f = x};
     r.i = 0x5f3759df - (r.i >> 1);
@@ -96,7 +123,8 @@ uint32_t msb(uint32_t v)
     return pos[(v * 0x077CB531UL) >> 27];
 }
 
-double log(double y)
+// https://stackoverflow.com/questions/9799041/efficient-implementation-of-natural-logarithm-ln-and-exponentiation
+double ln(double y)
 {
     uint32_t log2;
     double divisor, x, result;
@@ -111,7 +139,22 @@ double log(double y)
     return result;
 }
 
-double pow(double x, uint32_t n)
+double pow(double x, double y)
+{
+    return exp(y * ln(x));
+}
+
+double log(double x, double y)
+{
+    return ln(x) / ln(y);
+}
+
+double log10(double x)
+{
+    return ln(x) / 2.3025850929940456840179914546843642076011014886287729760333279009;
+}
+
+double ipow(double x, uint32_t n)
 {
     uint32_t i;
     double result = 1;
@@ -147,7 +190,7 @@ double sin_1st_quadrant(double x)
 
     for (n = 0; n < 14; n++)
     {
-        result += coeffs[n] * pow(x, 2 * n + 1);
+        result += coeffs[n] * ipow(x, 2 * n + 1);
     }
     return result;
 }
@@ -215,5 +258,60 @@ double cosh(double x)
 
 double tanh(double x)
 {
-    return sinh(x) / cosh(x);
+    double exp2x = exp(2 * x);
+    return (exp2x - 1) / (exp2x + 1);
+}
+
+double asinh(double x)
+{
+    return ln(x + sqrt(x * x + 1));
+}
+
+double acosh(double x)
+{
+    return ln(x + sqrt(x * x - 1));
+}
+
+double atanh(double x)
+{
+    return 0.5 * ln((1 + x) / (1 - x));
+}
+
+double asin(double x)
+{
+    boolean negate = (x < 0);
+    x = abs(x);
+    double ret = -0.0187293;
+    ret *= x;
+    ret += 0.0742610;
+    ret *= x;
+    ret -= 0.2121144;
+    ret *= x;
+    ret += 1.5707288;
+    ret = PI * 0.5 - sqrt(1.0 - x) * ret;
+    return ret - 2 * (double)negate * ret;
+}
+
+double acos(double x)
+{
+    boolean negate = (x < 0);
+    x = abs(x);
+    double ret = -0.0187293;
+    ret = ret * x;
+    ret = ret + 0.0742610;
+    ret = ret * x;
+    ret = ret - 0.2121144;
+    ret = ret * x;
+    ret = ret + 1.5707288;
+    ret = ret * sqrt(1.0 - x);
+    ret = ret - 2 * (double)negate * ret;
+    return (double)negate * PI + ret;
+}
+
+// https://stackoverflow.com/questions/42537957/fast-accurate-atan-arctan-approximation-algorithm
+double atan(double x)
+{
+    double A = 0.0776509570923569;
+    double B = -0.287434475393028;
+    return ((A * x * x + B) * x * x + (0.25 * PI - A - B)) * x;
 }

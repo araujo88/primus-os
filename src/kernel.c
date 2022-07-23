@@ -186,18 +186,38 @@ int main(void)
 						terminal_set_colors(default_font_color, COLOR_BLACK);
 					}
 				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "log(") != NULL)
+				else if (strlen(buffer) > 0 && strstr(buffer, "ln(") != NULL)
 				{
 					char *parser;
 					char *buff;
 					double num;
-					parser = strstr(buffer, "log(");
-					parser += strlen("log(");
+					parser = strstr(buffer, "ln(");
+					parser += strlen("ln(");
 					num = parse_float(parser, ')');
 					if (num != EPS)
 					{
 						printf("\n");
-						printf(ftoa(buff, log(num), 6));
+						printf(ftoa(buff, ln(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "log10(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					double num;
+					parser = strstr(buffer, "log10(");
+					parser += strlen("log10(");
+					num = parse_float(parser, ')');
+					if (num != EPS)
+					{
+						printf("\n");
+						printf(ftoa(buff, log10(num), 6));
 					}
 					else
 					{
@@ -218,6 +238,146 @@ int main(void)
 					{
 						printf("\n");
 						printf(ftoa(buff, sqrt(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "abs(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					double num;
+					parser = strstr(buffer, "abs(");
+					parser += strlen("abs(");
+					num = parse_float(parser, ')');
+					if (num != EPS)
+					{
+						printf("\n");
+						printf(ftoa(buff, abs(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "asinh(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					double num;
+					parser = strstr(buffer, "asinh(");
+					parser += strlen("asinh(");
+					num = parse_float(parser, ')');
+					if (num != EPS)
+					{
+						printf("\n");
+						printf(ftoa(buff, asinh(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "acosh(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					double num;
+					parser = strstr(buffer, "acosh(");
+					parser += strlen("acosh(");
+					num = parse_float(parser, ')');
+					if (num != EPS)
+					{
+						printf("\n");
+						printf(ftoa(buff, acosh(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "atanh(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					double num;
+					parser = strstr(buffer, "atanh(");
+					parser += strlen("atanh(");
+					num = parse_float(parser, ')');
+					if (num != EPS)
+					{
+						printf("\n");
+						printf(ftoa(buff, atanh(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "asin(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					double num;
+					parser = strstr(buffer, "asin(");
+					parser += strlen("asin(");
+					num = parse_float(parser, ')');
+					if (num != EPS)
+					{
+						printf("\n");
+						printf(ftoa(buff, asin(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "acos(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					double num;
+					parser = strstr(buffer, "acos(");
+					parser += strlen("acos(");
+					num = parse_float(parser, ')');
+					if (num != EPS)
+					{
+						printf("\n");
+						printf(ftoa(buff, acos(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "atan(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					double num;
+					parser = strstr(buffer, "atan(");
+					parser += strlen("atan(");
+					num = parse_float(parser, ')');
+					if (num != EPS)
+					{
+						printf("\n");
+						printf(ftoa(buff, atan(num), 6));
 					}
 					else
 					{
@@ -350,7 +510,7 @@ int main(void)
 				{
 					char *parser;
 					double num;
-					uint32_t n;
+					double n;
 					parser = strstr(buffer, "pow(");
 					parser += strlen("pow(");
 					num = parse_float(parser, ',');
@@ -361,8 +521,35 @@ int main(void)
 							parser++;
 						}
 						parser++;
-						n = parse_int(parser, ')');
-						printf("\n%d", pow(num, n));
+						n = parse_float(parser, ')');
+						printf("\n");
+						printf(ftoa(buff, pow(num, n), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "log(") != NULL)
+				{
+					char *parser;
+					double num;
+					double n;
+					parser = strstr(buffer, "log(");
+					parser += strlen("log(");
+					num = parse_float(parser, ',');
+					if (num != EPS)
+					{
+						while (parser[0] != ',')
+						{
+							parser++;
+						}
+						parser++;
+						n = parse_float(parser, ')');
+						printf("\n");
+						printf(ftoa(buff, log(num, n), 6));
 					}
 					else
 					{
@@ -375,11 +562,13 @@ int main(void)
 				{
 					printf("\n\n\tMathematical functions:\n");
 					printf("\n\t fact(x)            - \treturns factorial of x");
+					printf("\n\t abs(x)             - \treturns absolute value of x");
 					printf("\n\t sqrt(x)            - \treturns square root of x");
-					printf("\n\t inv_sqrt(x)        - \treturns inverse square root of x");
 					printf("\n\t pow(x,y)           - \treturns the y power of x");
 					printf("\n\t exp(x)             - \treturns the natural exponential of x");
-					printf("\n\t log(x)             - \treturns the natural logarithm of x");
+					printf("\n\t ln(x)              - \treturns the natural logarithm of x");
+					printf("\n\t log10(x)           - \treturns the logarithm of x base 10");
+					printf("\n\t log(x,y)           - \treturns the logarithm of x base y");
 					printf("\n\t sin(x)             - \treturns sine of x");
 					printf("\n\t cos(x)             - \treturns cosine of x");
 					printf("\n\t tan(x)             - \treturns tangent of x");

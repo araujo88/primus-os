@@ -5,9 +5,10 @@
 
 #define PI 3.14159265358979323846
 
-double machine_eps(double value);
+double machine_eps(double x);
 uint32_t fact(uint32_t n);
-double pow(double x, uint32_t n);
+double abs(double x);
+double pow(double x, double y);
 double sqrt(double x);
 double inv_sqrt(double x);
 double sin(double x);
@@ -23,7 +24,9 @@ double asinh(double x);
 double acosh(double x);
 double atanh(double x);
 double exp(double x);
-double log(double x);
+double ln(double x);
+uint32_t log2(uint32_t x);
 double log10(double x);
+double log(double x, double y);
 
 #endif
