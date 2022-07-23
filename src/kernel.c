@@ -11,6 +11,7 @@
 #include "../include/sha224.h"
 #include "../include/sha256.h"
 #include "../include/utils.h"
+#include "../include/random.h"
 
 #define BUFFER_SIZE 1024
 
@@ -562,6 +563,8 @@ int main(void)
 				else if (strlen(buffer) > 0 && strcmp(buffer, "math") == 0)
 				{
 					printf("\n\n\tMathematical functions:\n");
+					printf("\n\t rand()             - \tpseudo random number generator");
+					printf("\n\t srand()            - \tpseudo random number generator seed");
 					printf("\n\t fact(x)            - \treturns factorial of x");
 					printf("\n\t abs(x)             - \treturns absolute value of x");
 					printf("\n\t sqrt(x)            - \treturns square root of x");
@@ -582,7 +585,6 @@ int main(void)
 					printf("\n\t asinh(x)           - \treturns inverse hyperbolic sine of x");
 					printf("\n\t acosh(x)           - \treturns inverse hyperbolic cosine of x");
 					printf("\n\t atanh(x)           - \treturns inverse hyperbolic tangent of x");
-					printf("\n");
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "crypto") == 0)
 				{
@@ -633,6 +635,16 @@ int main(void)
 				{
 					printf("\nCurrent clock: ");
 					clock();
+				}
+				else if (strlen(buffer) > 0 && strcmp(buffer, "srand()") == 0)
+				{
+					printf("\nGenerated seed for random number generator.");
+					srand();
+				}
+				else if (strlen(buffer) > 0 && strcmp(buffer, "rand()") == 0)
+				{
+					printf("\n");
+					printf(ftoa(buff, rand(), 6));
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "reboot") == 0)
 				{
