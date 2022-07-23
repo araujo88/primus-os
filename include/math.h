@@ -5,11 +5,11 @@
 
 #define PI 3.14159265358979323846
 
-float machine_eps(float value);
+double machine_eps(double value);
 uint32_t fact(uint32_t n);
 double pow(double x, uint32_t n);
-float sqrt(float x);
-float inv_sqrt(float x);
+double sqrt(double x);
+double inv_sqrt(double x);
 double sin(double x);
 double cos(double x);
 double tan(double x);

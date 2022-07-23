@@ -166,6 +166,46 @@ int main(void)
 						terminal_set_colors(default_font_color, COLOR_BLACK);
 					}
 				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "exp(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					double num;
+					parser = strstr(buffer, "exp(");
+					parser += strlen("exp(");
+					num = parse_float(parser, ')');
+					if (num != EPS)
+					{
+						printf("\n");
+						printf(ftoa(buff, exp(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "log(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					double num;
+					parser = strstr(buffer, "log(");
+					parser += strlen("log(");
+					num = parse_float(parser, ')');
+					if (num != EPS)
+					{
+						printf("\n");
+						printf(ftoa(buff, log(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "sqrt(") != NULL)
 				{
 					char *parser;
@@ -246,6 +286,66 @@ int main(void)
 						terminal_set_colors(default_font_color, COLOR_BLACK);
 					}
 				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "sinh(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					double num;
+					parser = strstr(buffer, "sinh(");
+					parser += strlen("sinh(");
+					num = parse_float(parser, ')');
+					if (num != EPS)
+					{
+						printf("\n");
+						printf(ftoa(buff, sinh(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "cosh(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					double num;
+					parser = strstr(buffer, "cosh(");
+					parser += strlen("cosh(");
+					num = parse_float(parser, ')');
+					if (num != EPS)
+					{
+						printf("\n");
+						printf(ftoa(buff, cosh(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
+				else if (strlen(buffer) > 0 && strstr(buffer, "tanh(") != NULL)
+				{
+					char *parser;
+					char *buff;
+					double num;
+					parser = strstr(buffer, "tanh(");
+					parser += strlen("tanh(");
+					num = parse_float(parser, ')');
+					if (num != EPS)
+					{
+						printf("\n");
+						printf(ftoa(buff, tanh(num), 6));
+					}
+					else
+					{
+						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
+						printf("\nParsing error.");
+						terminal_set_colors(default_font_color, COLOR_BLACK);
+					}
+				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "pow(") != NULL)
 				{
 					char *parser;
@@ -274,12 +374,24 @@ int main(void)
 				else if (strlen(buffer) > 0 && strcmp(buffer, "math") == 0)
 				{
 					printf("\n\n\tMathematical functions:\n");
-					printf("\n\t sqrt(x)            - \tcomputes square root of x");
-					printf("\n\t inv_sqrt(x)        - \tcomputes inverse square root of x");
-					printf("\n\t sin(x)             - \tcomputes sine of x");
-					printf("\n\t cos(x)             - \tcomputes cosine of x");
-					printf("\n\t tan(x)             - \tcomputes tangent of x");
-					printf("\n\t fact(x)            - \tcomputes factorial of x");
+					printf("\n\t fact(x)            - \treturns factorial of x");
+					printf("\n\t sqrt(x)            - \treturns square root of x");
+					printf("\n\t inv_sqrt(x)        - \treturns inverse square root of x");
+					printf("\n\t pow(x,y)           - \treturns the y power of x");
+					printf("\n\t exp(x)             - \treturns the natural exponential of x");
+					printf("\n\t log(x)             - \treturns the natural logarithm of x");
+					printf("\n\t sin(x)             - \treturns sine of x");
+					printf("\n\t cos(x)             - \treturns cosine of x");
+					printf("\n\t tan(x)             - \treturns tangent of x");
+					printf("\n\t asin(x)            - \treturns arcsine of x");
+					printf("\n\t acos(x)            - \treturns arccosine of x");
+					printf("\n\t atan(x)            - \treturns arctangent of x");
+					printf("\n\t sinh(x)            - \treturns hyperbolic sine of x");
+					printf("\n\t cosh(x)            - \treturns hyperbolic cosine of x");
+					printf("\n\t tanh(x)            - \treturns hyperbolic tangent of x");
+					printf("\n\t asinh(x)           - \treturns inverse hyperbolic sine of x");
+					printf("\n\t acosh(x)           - \treturns inverse hyperbolic cosine of x");
+					printf("\n\t atanh(x)           - \treturns inverse hyperbolic tangent of x");
 					printf("\n");
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "crypto") == 0)

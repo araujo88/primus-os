@@ -1,13 +1,30 @@
 #include "../include/math.h"
 #include "../include/bool.h"
+#include "../include/memory.h"
+
+const int tab32[32] = {
+    0, 9, 1, 10, 13, 21, 2, 29,
+    11, 14, 16, 18, 22, 25, 3, 30,
+    8, 12, 20, 28, 15, 17, 24, 7,
+    19, 27, 23, 6, 26, 5, 4, 31};
+
+uint32_t log2(uint32_t value)
+{
+    value |= value >> 1;
+    value |= value >> 2;
+    value |= value >> 4;
+    value |= value >> 8;
+    value |= value >> 16;
+    return tab32[(uint32_t)(value * 0x07C4ACDD) >> 27];
+}
 
 typedef union
 {
     long long i64;
-    float d64;
+    double d64;
 } dbl_64;
 
-float machine_eps(float value)
+double machine_eps(double value)
 {
     dbl_64 s;
     s.d64 = value;
@@ -27,26 +44,71 @@ uint32_t fact(uint32_t n)
     return fact;
 }
 
-float inv_sqrt(float x)
+double exp(double x) // quartic spline approximation
+{
+
+    union
+    {
+        float f;
+        int32_t i;
+    } r;
+
+    r.i = (int32_t)(12102203.0f * x) + 127 * (1 << 23);
+    int32_t m = (r.i >> 7) & 0xFFFF; // copy mantissa
+    // empirical values for small maximum relative error (1.21e-5):
+    r.i += (((((((((((3537 * m) >> 16) + 13668) * m) >> 18) + 15817) * m) >> 14) - 80470) * m) >> 11);
+    return r.f;
+}
+
+double inv_sqrt(double x)
 {
     uint32_t j;
     uint32_t it = 3; // num of iterations Newton-Raphson
     union
     {
-        float f;
+        double f;
         uint32_t i;
-    } conv = {.f = x};
-    conv.i = 0x5f3759df - (conv.i >> 1);
+    } r = {.f = x};
+    r.i = 0x5f3759df - (r.i >> 1);
     for (j = 0; j < it; j++)
     {
-        conv.f *= 1.5F - (x * 0.5F * conv.f * conv.f);
+        r.f *= 1.5F - (x * 0.5F * r.f * r.f);
     }
-    return conv.f;
+    return r.f;
 }
 
-float sqrt(float x)
+double sqrt(double x)
 {
     return 1. / inv_sqrt(x);
+}
+
+uint32_t msb(uint32_t v)
+{
+    static const uint32_t pos[32] = {0, 1, 28, 2, 29, 14, 24, 3,
+                                     30, 22, 20, 15, 25, 17, 4, 8, 31, 27, 13, 23, 21, 19,
+                                     16, 7, 26, 12, 18, 6, 11, 5, 10, 9};
+    v |= v >> 1;
+    v |= v >> 2;
+    v |= v >> 4;
+    v |= v >> 8;
+    v |= v >> 16;
+    v = (v >> 1) + 1;
+    return pos[(v * 0x077CB531UL) >> 27];
+}
+
+double log(double y)
+{
+    uint32_t log2;
+    double divisor, x, result;
+
+    log2 = msb((uint32_t)y); // See: https://stackoverflow.com/a/4970859/6630230
+    divisor = (double)(1 << log2);
+    x = y / divisor; // normalized value between [1.0, 2.0]
+
+    result = -1.7417939 + (2.8212026 + (-1.4699568 + (0.44717955 - 0.056570851 * x) * x) * x) * x;
+    result += ((double)log2) * 0.69314718; // ln(2) = 0.69314718
+
+    return result;
 }
 
 double pow(double x, uint32_t n)
@@ -139,4 +201,19 @@ double cos(double x)
 double tan(double x)
 {
     return sin(x) / cos(x);
+}
+
+double sinh(double x)
+{
+    return 0.5 * (exp(x) - exp(-x));
+}
+
+double cosh(double x)
+{
+    return 0.5 * (exp(x) + exp(-x));
+}
+
+double tanh(double x)
+{
+    return sinh(x) / cosh(x);
 }
