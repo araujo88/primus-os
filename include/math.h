@@ -4,10 +4,12 @@
 #include "stdint.h"
 
 #define PI 3.14159265358979323846
+#define EULER 2.71828182845904523536
 
 double machine_eps(double x);
 uint32_t fact(uint32_t n);
 double abs(double x);
+double ipow(double x, uint32_t n);
 double pow(double x, double y);
 double sqrt(double x);
 double inv_sqrt(double x);
