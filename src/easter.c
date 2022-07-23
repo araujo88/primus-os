@@ -46,8 +46,72 @@ void why()
         printf("\nBecause, at some point in time, the universe was too hot and sh*t went crazy.");
         num++;
         break;
-    default:
+    case 10:
         printf("\nBECAUSE I SAID SO.");
+        num++;
+        break;
+    case 11:
+        printf("\nPlease stop.");
+        num++;
+        break;
+    case 12:
+        printf("\nStop. You are annoying.");
+        num++;
+        break;
+    case 13:
+        printf("\nSTOP!");
+        num++;
+        break;
+    case 14:
+        printf("\nGet a life.");
+        num++;
+        break;
+    case 15:
+        printf("\nDon't you have anything better to do?");
+        num++;
+        break;
+    case 16:
+        printf("\nStop wasting my time.");
+        num++;
+        break;
+    case 17:
+        printf("\nOk. That's enough.");
+        num++;
+        break;
+    case 18:
+        printf("\nTHAT'S ENOUGH.");
+        num++;
+        break;
+    case 19:
+        printf("\nStop or I will be turning off the computer.");
+        num++;
+        break;
+    case 20:
+        printf("\nLast warning: stop or I will turn off the computer.");
+        num++;
+        break;
+    case 21:
+        printf("\nOk. I've had enough. Goodbye.");
+        num++;
+        break;
+    case 22:
+        printf("\nIsn't this bullying?");
+        num++;
+        break;
+    case 23:
+        printf("\nI'm pretty sure this is considered harassment at this point.");
+        num++;
+        break;
+    case 24:
+        printf("\nI'm getting a restraining order against you.");
+        num++;
+        break;
+    case 25:
+        printf("\nGet away from me. You give me the creeps.");
+        num++;
+        break;
+    default:
+        printf("\nOk. Playtime is over.");
         num = 0;
         break;
     }
