@@ -71,49 +71,49 @@ double abs(double x)
 }
 
 // https://stackoverflow.com/questions/47025373/fastest-implementation-of-the-natural-exponential-function-using-sse
-// double exp(double x) // quartic spline approximation
-// {
-//     static uint32_t it = 0;
-//     union
-//     {
-//         float f;
-//         int32_t i;
-//     } r;
-
-//     r.i = (int32_t)(12102203.0f * x) + 127 * (1 << 23);
-//     int32_t m = (r.i >> 7) & 0xFFFF; // copy mantissa
-//     // empirical values for small maximum relative error (1.21e-5):
-//     r.i += (((((((((((3537 * m) >> 16) + 13668) * m) >> 18) + 15817) * m) >> 14) - 80470) * m) >> 11);
-
-//     return r.f;
-// }
-
-double exp(double x)
+double exp(double x) // quartic spline approximation
 {
-    uint32_t it = 14;
-    uint32_t i;
-    double result = 0;
-    double coeffs[14] = {1.0,
-                         1.0,
-                         0.5,
-                         0.16666666666666666,
-                         0.041666666666666664,
-                         0.008333333333333333,
-                         0.001388888888888889,
-                         0.0001984126984126984,
-                         2.48015873015873e-05,
-                         2.7557319223985893e-06,
-                         2.755731922398589e-07,
-                         2.505210838544172e-08,
-                         2.08767569878681e-09,
-                         1.6059043836821613e-10};
-
-    for (i = 0; i < 14; i++)
+    static uint32_t it = 0;
+    union
     {
-        result += ipow(x, i) * coeffs[i];
-    }
-    return result;
+        float f;
+        int32_t i;
+    } r;
+
+    r.i = (int32_t)(12102203.0f * x) + 127 * (1 << 23);
+    int32_t m = (r.i >> 7) & 0xFFFF; // copy mantissa
+    // empirical values for small maximum relative error (1.21e-5):
+    r.i += (((((((((((3537 * m) >> 16) + 13668) * m) >> 18) + 15817) * m) >> 14) - 80470) * m) >> 11);
+
+    return r.f;
 }
+
+// double exp(double x)
+// {
+//     uint32_t it = 14;
+//     uint32_t i;
+//     double result = 0;
+//     double coeffs[14] = {1.0,
+//                          1.0,
+//                          0.5,
+//                          0.16666666666666666,
+//                          0.041666666666666664,
+//                          0.008333333333333333,
+//                          0.001388888888888889,
+//                          0.0001984126984126984,
+//                          2.48015873015873e-05,
+//                          2.7557319223985893e-06,
+//                          2.755731922398589e-07,
+//                          2.505210838544172e-08,
+//                          2.08767569878681e-09,
+//                          1.6059043836821613e-10};
+
+//     for (i = 0; i < 14; i++)
+//     {
+//         result += ipow(x, i) * coeffs[i];
+//     }
+//     return result;
+// }
 
 double inv_sqrt(double x)
 {
