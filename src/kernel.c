@@ -12,6 +12,7 @@
 #include "../include/sha256.h"
 #include "../include/utils.h"
 #include "../include/random.h"
+#include "../include/easter.h"
 
 #define BUFFER_SIZE 1024
 
@@ -58,6 +59,10 @@ int main(void)
 				else if (strlen(buffer) > 0 && strcmp(buffer, "hello") == 0)
 				{
 					printf("\nHi!");
+				}
+				if (strlen(buffer) > 0 && strcmp(buffer, "why") == 0)
+				{
+					why();
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "fuck") != NULL)
 				{
