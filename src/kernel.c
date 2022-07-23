@@ -10,6 +10,7 @@
 #include "../include/limits.h"
 #include "../include/sha224.h"
 #include "../include/sha256.h"
+#include "../include/utils.h"
 
 #define BUFFER_SIZE 1024
 
@@ -30,8 +31,8 @@ int main(void)
 	terminal_initialize(default_font_color, COLOR_BLACK);
 	terminal_set_colors(COLOR_LIGHT_GREEN, COLOR_BLACK);
 	sprintf(current_version, "%u.%u.%u", V1, V2, V3 + 1);
-	printf("\n\tPrimusOS - version %s\n", current_version);
-	printf("\tGitHub repository: https://github.com/araujo88/primus-os\n");
+	print_logo();
+	about(current_version);
 	printf("\tType \"help\" for a list of commands.\n\n");
 	printf("\tCurrent datetime: ");
 	datetime();
@@ -605,8 +606,7 @@ int main(void)
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "about") == 0)
 				{
-					printf("\n\n\tPrimusOS - version %s\n", current_version);
-					printf("\tGitHub repository: https://github.com/araujo88/primus-os\n\n");
+					about(current_version);
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "fontcolor") == 0)
 				{

@@ -4,7 +4,7 @@
 #include "../include/memory.h"
 #include "../include/tty.h"
 
-char *sha224(char *message)
+void sha224(char *message)
 {
     /* Note 1: All variables are 32 bit uint32_tegers and addition is calculated modulo 2^32
     Note 2: For each round, there is one round constant k[i] and one entry in the message schedule array w[i], 0 ≤ i ≤ 63
@@ -125,6 +125,4 @@ char *sha224(char *message)
     unsigned char digest[256];
     sprintf(digest, "%x%x%x%x%x%x%x", h0, h1, h2, h3, h4, h5, h6);
     printf("\n%s", digest);
-
-    return digest;
 }

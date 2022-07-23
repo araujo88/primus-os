@@ -15,8 +15,12 @@ OBJ_FILES2=$(patsubst $(SRC_DIR)/%.s, $(OBJ_DIR)/%.o, $(SRC_FILES2))
 SRC_FILES3=$(wildcard $(SRC_DIR)/*.asm)
 OBJ_FILES3=$(patsubst $(SRC_DIR)/%.asm, $(OBJ_DIR)/%.o, $(SRC_FILES3))
 
+check_dir:
+	if [ ! -d "$(OBJ_DIR)" ]; then \
+		mkdir -p $(OBJ_DIR); \
+	fi
+
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(OBJ_DIR)
 	$(CC) $(GCCPARAMS) $^ -I$(HDR_DIR) -c -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.s

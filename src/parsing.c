@@ -15,7 +15,7 @@ uint32_t parse_int(char *string, char c)
         i++;
         if (string[i] == '\0')
         {
-            return NULL;
+            return (uint32_t)NULL;
         }
     }
     return atoi(parser);

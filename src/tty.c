@@ -206,14 +206,14 @@ int printf(const char *format, ...)
         else if (*format == 'd')
         {
             format++;
-            const char *s;
+            char *s;
             sprintf(s, "%d", va_arg(parameters, const char *));
             print(s, strlen(s));
         }
         else if (*format == 'f')
         {
             format++;
-            const char *s;
+            char *s;
             sprintf(s, "%f", va_arg(parameters, const char *));
             print(s, strlen(s));
         }
@@ -258,16 +258,8 @@ void terminal_set_colors(enum vga_color font_color, enum vga_color background_co
     // }
 }
 
-enum vga_color change_font_color()
+void print_color_options()
 {
-    enum vga_color font_color;
-    char buffer[BUFFER_SIZE];
-    uint8_t byte;
-    uint32_t color;
-
-    memset(buffer, 0, BUFFER_SIZE);
-    strcpy(&buffer[strlen(buffer)], "");
-
     printf("\nPlease select a font color. Valid options are:\n");
     terminal_set_colors(COLOR_BLUE, COLOR_BLACK);
     printf("\nCOLOR_BLUE = 1");
@@ -301,6 +293,19 @@ enum vga_color change_font_color()
     printf("\nCOLOR_WHITE = 15\n");
     terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
     print_prompt();
+}
+
+enum vga_color change_font_color()
+{
+    enum vga_color font_color;
+    char buffer[BUFFER_SIZE];
+    uint8_t byte;
+    uint32_t color;
+
+    memset(buffer, 0, BUFFER_SIZE);
+    strcpy(&buffer[strlen(buffer)], "");
+
+    print_color_options();
 
     while (true)
     {
@@ -386,40 +391,8 @@ enum vga_color change_font_color()
                     return font_color;
                     break;
                 default:
-                    printf("\nPlease select a font color. Valid options are:\n");
-                    terminal_set_colors(COLOR_BLUE, COLOR_BLACK);
-                    printf("\nCOLOR_BLUE = 1");
-                    terminal_set_colors(COLOR_GREEN, COLOR_BLACK);
-                    printf("\nCOLOR_GREEN = 2");
-                    terminal_set_colors(COLOR_CYAN, COLOR_BLACK);
-                    printf("\nCOLOR_CYAN = 3");
-                    terminal_set_colors(COLOR_RED, COLOR_BLACK);
-                    printf("\nCOLOR_RED = 4");
-                    terminal_set_colors(COLOR_MAGENTA, COLOR_BLACK);
-                    printf("\nCOLOR_MAGENTA = 5");
-                    terminal_set_colors(COLOR_BROWN, COLOR_BLACK);
-                    printf("\nCOLOR_BROWN = 6");
-                    terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
-                    printf("\nCOLOR_LIGHT_GREY = 7");
-                    terminal_set_colors(COLOR_DARK_GREY, COLOR_BLACK);
-                    printf("\nCOLOR_DARK_GREY = 8");
-                    terminal_set_colors(COLOR_LIGHT_BLUE, COLOR_BLACK);
-                    printf("\nCOLOR_LIGHT_BLUE = 9");
-                    terminal_set_colors(COLOR_LIGHT_GREEN, COLOR_BLACK);
-                    printf("\nCOLOR_LIGHT_GREEN = 10");
-                    terminal_set_colors(COLOR_LIGHT_CYAN, COLOR_BLACK);
-                    printf("\nCOLOR_LIGHT_CYAN = 11");
-                    terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-                    printf("\nCOLOR_LIGHT_RED = 12");
-                    terminal_set_colors(COLOR_LIGHT_MAGENTA, COLOR_BLACK);
-                    printf("\nCOLOR_LIGHT_MAGENTA = 13");
-                    terminal_set_colors(COLOR_LIGHT_BROWN, COLOR_BLACK);
-                    printf("\nCOLOR_LIGHT_BROWN = 14");
-                    terminal_set_colors(COLOR_WHITE, COLOR_BLACK);
-                    printf("\nCOLOR_WHITE = 15\n");
-                    terminal_set_colors(COLOR_LIGHT_GREY, COLOR_BLACK);
+                    print_color_options();
                     memset(buffer, 0, BUFFER_SIZE);
-                    print_prompt();
                 }
             }
             else
