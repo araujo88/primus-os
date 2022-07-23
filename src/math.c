@@ -315,3 +315,23 @@ double atan(double x)
     double B = -0.287434475393028;
     return ((A * x * x + B) * x * x + (0.25 * PI - A - B)) * x;
 }
+
+double add(double x, double y)
+{
+    return x + y;
+}
+
+double sub(double x, double y)
+{
+    return x - y;
+}
+
+double mul(double x, double y)
+{
+    return x * y;
+}
+
+double div(double x, double y)
+{
+    return x / y;
+}
