@@ -28,5 +28,9 @@ double ln(double x);
 uint32_t log2(uint32_t x);
 double log10(double x);
 double log(double x, double y);
+double add(double x, double y);
+double sub(double x, double y);
+double mul(double x, double y);
+double div(double x, double y);
 
 #endif
