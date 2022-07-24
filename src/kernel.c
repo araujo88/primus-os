@@ -96,9 +96,9 @@ int main(void)
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "do you like anime") != NULL)
 				{
-					printf("\nOf course! ");
+					printf("\nOf course!\n");
 					terminal_set_colors(COLOR_LIGHT_BROWN, COLOR_BLACK);
-					printf("Yare Yare daze ...");
+					anime();
 					terminal_set_colors(default_font_color, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "are you a boy or a girl") != NULL)

@@ -116,3 +116,28 @@ void why()
         break;
     }
 }
+
+void anime()
+{
+    printf("MMMMSSSSSSSSSSSSSSSSSMSS;.     .dMMMMSSSSSSMMSSSSSSSSS\n");
+    printf("MMSSSSSSSMSSSSSMSSSSMMMSS.\"-.-\":MMMMMSSSSMMMMSSMSSSMMS\n");
+    printf("MSSSSSSSMSSSSMMMSSMMMPTMM;\"-/\":MMM^\"     MMMSSMMMSSMM\n");
+    printf("SSSSSSSMMSSMMMMMMMMMP-.MMM :  ;.;P       dMMMMMMMMMP' \n");
+    printf("SSMSSSMMMSMMMMMMMMMP   :M;`:  ;.'+\"\"\"t+dMMMMMMMMMMP   \n");
+    printf("MMMSSMMMMMMMMPTMMMM\"\"\"\":P `.\\// '    \"\"^^MMMMMMMP'    \n");
+    printf("MMMMMMPTMMMMP=\"TMMMsg,      \\/   db`c\"  dMMMMMP\"      \n");
+    printf("MMMMMM  TMMM   d$$$b ^          /T$; ;-/TMMMP         \n");
+    printf("MMMMM; .^`M; d$P^T$$b          :  $$ ::  \"T(          \n");
+    printf("MMMMMM   .-+d$$   $$$;         ; d$$ ;;  __           \n");
+    printf("MMMMMMb   _d$$$   $$$$         :$$$; :MmMMMMp.        \n");
+    printf("MMMMMM\"  \" T$$$._.$$$;          T$P.'MMMSSSSSSb.      \n");
+    printf("MMM`TMb   -\")T$$$$$$P'       `._ \"\"  :MMSSSMMP'       \n");
+    printf("MMM / \\    '  \"T$$P\"           /     :MMMMMMM         \n");
+    printf("MMSb`. ;                      \"      :MMMMMMM         \n");
+    printf("MMSSb_lSSSb.      \\ `.   .___.       MMMMMMMM         \n");
+    printf("MMMMSSSSSSSSb.                     .MMMMMMMMM         \n");
+    printf("MMMMMMMMMMMSSSb                  .dMMMMMMMMM'         \n");
+    printf("MMMMMMMMMMMMMSS;               .dMMMMMMMMMMP          \n");
+    printf("MMMMMMMMMMMMMb`;\"-.          .dMMMMMMMMMMP'           \n");
+    printf("MMMMMMMMMMMMMMb    \"\"--.___.dMMMMMMMMMP^\"             \n");
+}

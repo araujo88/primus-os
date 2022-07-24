@@ -5,5 +5,6 @@
 
 void why();
 void jokes();
+void anime();
 
 #endif
