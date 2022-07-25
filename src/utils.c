@@ -16,6 +16,8 @@ void print_logo()
 
 void about(char *version)
 {
-    printf("\n\tPrimusOS - version %s\n", version);
-    printf("\tGitHub repository: https://github.com/araujo88/primus-os\n");
+    printf("\n\tPrimusOS - v%s - A simple 32-bit Ring 0 operating system", version);
+    printf("\n\tProvided under the GNU General Public License v3.0");
+    printf("\n\tInspired by Terry A. Davis (in memoriam)");
+    printf("\n\tGitHub repository: https://github.com/araujo88/primus-os\n");
 }

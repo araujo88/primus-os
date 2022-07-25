@@ -4,15 +4,16 @@
 #include "../include/kbd.h"
 #include "../include/string.h"
 #include "../include/time.h"
-#include "../include/math.h"
+#include "../include/math_shell.h"
 #include "../include/parsing.h"
 #include "../include/bool.h"
-#include "../include/limits.h"
 #include "../include/sha224.h"
 #include "../include/sha256.h"
 #include "../include/utils.h"
-#include "../include/random.h"
 #include "../include/easter.h"
+#include "../include/sleep.h"
+#include "../include/thread.h"
+#include "../include/memory.h"
 
 #define BUFFER_SIZE 1024
 
@@ -21,7 +22,6 @@ uint8_t capslock = false;
 uint8_t scrolllock = false;
 uint8_t shift = false;
 char current_version[7];
-enum vga_color default_font_color = COLOR_LIGHT_GREY;
 
 int main(void)
 {
@@ -35,7 +35,7 @@ int main(void)
 	sprintf(current_version, "%u.%u.%u", V1, V2, V3 + 1);
 	print_logo();
 	about(current_version);
-	printf("\tType \"help\" for a list of commands.\n\n");
+	printf("\n\tType \"help\" for a list of commands.\n\n");
 	printf("\tCurrent datetime: ");
 	datetime();
 	printf("\n\tWelcome!\n\n");
@@ -155,415 +155,9 @@ int main(void)
 					parse_string(string, parser, ')');
 					sha224(string);
 				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "fact(") != NULL)
+				else if (math_func(buffer))
 				{
-					char *parser;
-					uint32_t num;
-					parser = strstr(buffer, "fact(");
-					parser += strlen("fact(");
-					num = parse_int(parser, ')');
-					if (num != (int)NULL)
-					{
-						printf("\n%d", fact(num));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "exp(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "exp(");
-					parser += strlen("exp(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, exp(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "ln(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "ln(");
-					parser += strlen("ln(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, ln(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "log10(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "log10(");
-					parser += strlen("log10(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, log10(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "sqrt(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "sqrt(");
-					parser += strlen("sqrt(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, sqrt(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "abs(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "abs(");
-					parser += strlen("abs(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, abs(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "asinh(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "asinh(");
-					parser += strlen("asinh(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, asinh(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "acosh(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "acosh(");
-					parser += strlen("acosh(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, acosh(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "atanh(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "atanh(");
-					parser += strlen("atanh(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, atanh(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "asin(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "asin(");
-					parser += strlen("asin(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, asin(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "acos(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "acos(");
-					parser += strlen("acos(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, acos(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "atan(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "atan(");
-					parser += strlen("atan(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, atan(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "sin(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "sin(");
-					parser += strlen("sin(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, sin(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "cos(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "cos(");
-					parser += strlen("cos(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, cos(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "tan(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "tan(");
-					parser += strlen("tan(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, tan(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "sinh(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "sinh(");
-					parser += strlen("sinh(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, sinh(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "cosh(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "cosh(");
-					parser += strlen("cosh(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, cosh(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "tanh(") != NULL)
-				{
-					char *parser;
-					char *buff;
-					double num;
-					parser = strstr(buffer, "tanh(");
-					parser += strlen("tanh(");
-					num = parse_float(parser, ')');
-					if (num != EPS)
-					{
-						printf("\n");
-						printf(ftoa(buff, tanh(num), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "pow(") != NULL)
-				{
-					char *parser;
-					double num;
-					double n;
-					parser = strstr(buffer, "pow(");
-					parser += strlen("pow(");
-					num = parse_float(parser, ',');
-					if (num != EPS)
-					{
-						while (parser[0] != ',')
-						{
-							parser++;
-						}
-						parser++;
-						n = parse_float(parser, ')');
-						printf("\n");
-						printf(ftoa(buff, pow(num, n), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
-				}
-				else if (strlen(buffer) > 0 && strstr(buffer, "log(") != NULL)
-				{
-					char *parser;
-					double num;
-					double n;
-					parser = strstr(buffer, "log(");
-					parser += strlen("log(");
-					num = parse_float(parser, ',');
-					if (num != EPS)
-					{
-						while (parser[0] != ',')
-						{
-							parser++;
-						}
-						parser++;
-						n = parse_float(parser, ')');
-						printf("\n");
-						printf(ftoa(buff, log(num, n), 6));
-					}
-					else
-					{
-						terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-						printf("\nParsing error.");
-						terminal_set_colors(default_font_color, COLOR_BLACK);
-					}
+					math_shell(buffer);
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "math") == 0)
 				{
@@ -640,16 +234,6 @@ int main(void)
 				{
 					printf("\nCurrent clock: ");
 					clock();
-				}
-				else if (strlen(buffer) > 0 && strcmp(buffer, "srand()") == 0)
-				{
-					printf("\nGenerated seed for random number generator.");
-					srand();
-				}
-				else if (strlen(buffer) > 0 && strcmp(buffer, "rand()") == 0)
-				{
-					printf("\n");
-					printf(ftoa(buff, rand(), 6));
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "reboot") == 0)
 				{

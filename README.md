@@ -2,7 +2,8 @@
 
 # PrimusOS
 
-A simple bare-bones 32-bit operating system written in Assembly x86 and C for educational purposes.
+A simple bare-bones 32-bit Ring 0 operating system written in Assembly x86 and C for educational purposes. <br>
+Inspired by Terry A. Davis (in memoriam).
 
 ## Bootloader "hello world" example
 
@@ -29,14 +30,14 @@ PLEASE, comment on the related issue BEFORE sending a pull request! Thanks. Cont
 
 ## TODO
 
- - Implement unit tests and bechmarks (math functions) <br>
- - Implement memory management <br>
- - Add file system and disk partitioning <br>
- - Add multithreading <br>
- - Implement calculator (parsing of command-line tokens) <br>
- - Implement basic text editor <br>
- - Create documentation <br>
- - Add games (tic-tac-toe, chess, etc.) <br>
- - Implement other VGA graphic modes <br>
- - Implement complex number library in C++ <br>
- - Implement linear algebra library, scientific computing, etc. <br>
+- Implement unit tests and bechmarks (math functions) <br>
+- Implement memory management <br>
+- Add file system and disk partitioning <br>
+- Add multithreading <br>
+- Implement calculator (parsing of command-line tokens) <br>
+- Implement basic text editor <br>
+- Create documentation <br>
+- Add games (tic-tac-toe, chess, etc.) <br>
+- Implement other VGA graphic modes <br>
+- Implement complex number library in C++ <br>
+- Implement linear algebra library, scientific computing, etc. <br>

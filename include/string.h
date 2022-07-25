@@ -5,6 +5,8 @@
 #include "stdint.h"
 #include "stddef.h"
 
+#define swap(a, b) (a ^= b ^= a ^= b)
+
 #define min(a, b) __extension__({ __typeof__ (a) _a = (a); \
        __typeof__ (b) _b = (b); \
        _a < _b ? _a : _b; })
@@ -33,10 +35,11 @@ int strncmp(const char *s1, const char *s2, size_t n);
 char *toupper(char *string);
 char *tolower(char *string);
 static char *sitoa(char *buf, unsigned int num, int width, enum flag_itoa flags);
+void itoa(char *str, int num, int base);
 int vsprintf(char *buf, const char *fmt, va_list va);
 int sprintf(char *buf, const char *fmt, ...);
 uint32_t atoi(const char *str);
-float atof(char *str);
+double atof(char *str);
 char *ftoa(char *buf, float f, int precision);
 
 #endif

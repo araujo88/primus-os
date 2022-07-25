@@ -1,5 +1,6 @@
 #include "../include/string.h"
 #include "../include/limits.h"
+#include "../include/bool.h"
 
 #include "stdarg.h"
 #include "stdint.h"
@@ -431,11 +432,11 @@ uint32_t atoi(const char *str)
     return base * sign;
 }
 
-float atof(char *str)
+double atof(char *str)
 {
-    float val = 0;
+    double val = 0;
     int afterdot = 0;
-    float scale = 1;
+    double scale = 1;
     int neg = 0;
 
     if (*str == '-')
@@ -463,4 +464,56 @@ float atof(char *str)
         return -val;
     else
         return val;
+}
+
+/* A utility function to reverse a string  */
+void reverse(char str[], int length)
+{
+    int start = 0;
+    int end = length - 1;
+    while (start < end)
+    {
+        swap(*(str + start), *(str + end));
+        start++;
+        end--;
+    }
+}
+
+// Implementation of itoa()
+void itoa(char *str, int num, int base)
+{
+    int i = 0;
+    boolean isNegative = false;
+
+    /* Handle 0 explicitly, otherwise empty string is printed for 0 */
+    if (num == 0)
+    {
+        str[i++] = '0';
+        str[i] = '\0';
+    }
+
+    // In standard itoa(), negative numbers are handled only with
+    // base 10. Otherwise numbers are considered unsigned.
+    if (num < 0 && base == 10)
+    {
+        isNegative = true;
+        num = -num;
+    }
+
+    // Process individual digits
+    while (num != 0)
+    {
+        int rem = num % base;
+        str[i++] = (rem > 9) ? (rem - 10) + 'a' : rem + '0';
+        num = num / base;
+    }
+
+    // If number is negative, append '-'
+    if (isNegative)
+        str[i++] = '-';
+
+    str[i] = '\0'; // Append string terminator
+
+    // Reverse the string
+    reverse(str, i);
 }
