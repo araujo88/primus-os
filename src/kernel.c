@@ -42,6 +42,32 @@ int main(void)
 
 	terminal_set_colors(default_font_color, COLOR_BLACK);
 
+	// initialize heap
+	printf("\nInitializing heap ...");
+	heap_init();
+
+	// memory test
+	int *a = (int *)kmalloc(sizeof(int));
+	void *b = kmalloc(5000);
+	void *c = kmalloc(50000);
+	*a = 1;
+	printf("\na: %d", *a);
+	printf("\na: %p", (void *)a);
+	printf("\nb: %p", (void *)b);
+	printf("\nc: %p", (void *)c);
+	// int *b = (int *)kmalloc(0x1000);
+	// int *c = (int *)kmalloc(sizeof(int));
+	// printf("\nb: %x", b);
+	// printf("\nc: %x", c);
+	// kfree(b);
+	// int *d = (int *)kmalloc(0x1000); // here should be adress of B
+	// printf("\nd: %x", d);
+	// kfree(d);
+	// kfree(c);
+	kfree(a);
+	kfree(b);
+	kfree(c);
+
 	strcpy(&buffer[strlen(buffer)], "");
 	print_prompt();
 	while (true)

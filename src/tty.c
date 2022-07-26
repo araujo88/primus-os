@@ -351,6 +351,16 @@ int printf(const char *format, ...)
             print("0x", 2);
             print(s, strlen(s));
         }
+        else if (*format == 'p')
+        {
+            format++;
+            char *s;
+            const void *ptr = va_arg(parameters, void *);
+            uintptr_t uptr = (uintptr_t)ptr;
+            itoa(s, uptr, 16);
+            print("0x", 2);
+            print(s, strlen(s));
+        }
         else if (*format == 's')
         {
             format++;

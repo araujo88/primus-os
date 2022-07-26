@@ -5,23 +5,46 @@
 #include "stddef.h"
 #include "bool.h"
 
-#define MEM_TOTAL_SIZE 4096 // 4 kb
-#define MEM_NODE_SIZE sizeof(mem_node_t)
+#define EINVARG 2
+#define ENOMEM 3
 
-typedef struct mem_node // double linked list
+#define HEAP_BLOCK_TABLE_ENTRY_TAKEN 0x01
+#define HEAP_BLOCK_TABLE_ENTRY_FREE 0x00
+
+#define HEAP_BLOCK_HAS_NEXT 0b10000000
+#define HEAP_BLOCK_IS_FIRST 0b01000000
+#define HEAP_ADDRESS 0x01000000
+#define HEAP_TABLE_ADRESS 0x00007E00
+
+// 100 MB heap size
+#define HEAP_SIZE_BYTES 1024 * 1024 * 100
+// 4 kb block size
+#define HEAP_BLOCK_SIZE 4096
+
+typedef unsigned char HEAP_BLOCK_TABLE_ENTRY;
+
+struct heap_table
 {
-    uint32_t size;
-    boolean used;
-    struct mem_node *next;
-    struct mem_node *prev;
-} mem_node_t;
+    HEAP_BLOCK_TABLE_ENTRY *entries;
+    size_t total;
+};
 
+struct heap
+{
+    struct heap_table *table;
+    // start address of the heap data pool
+    void *saddr;
+};
+
+static struct heap kernel_heap;
+static struct heap_table kernel_heap_table;
+
+void heap_init();
+int heap_create(struct heap *heap, void *ptr, void *end, struct heap_table *table);
 void memcpy(void *dest, void *src, size_t n);
-void init_mem();
-void *find_best_mem_block(mem_node_t *dynamic_mem, size_t size);
-void *malloc(size_t size);
-void *merge_next_node_into_current(mem_node_t *current_mem_node);
-void *merge_current_node_into_previous(mem_node_t *current_mem_node);
-void free(void *p);
+void *heap_malloc(struct heap *heap, size_t size);
+void heap_free(struct heap *heap, void *ptr);
+void *kmalloc(size_t size);
+void kfree(void *ptr);
 
 #endif
