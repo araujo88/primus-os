@@ -15,6 +15,8 @@
 #include "../include/thread.h"
 #include "../include/memory.h"
 
+#define DEBUG false
+
 #define BUFFER_SIZE 1024
 
 uint8_t numlock = true;
@@ -43,9 +45,9 @@ int main(void)
 	terminal_set_colors(default_font_color, COLOR_BLACK);
 
 	// initialize heap
-	printf("\nInitializing heap ...");
 	heap_init();
 
+#if DEBUG
 	// memory test
 	int *a = (int *)kmalloc(sizeof(int));
 	void *b = kmalloc(5000);
@@ -67,6 +69,7 @@ int main(void)
 	kfree(a);
 	kfree(b);
 	kfree(c);
+#endif
 
 	strcpy(&buffer[strlen(buffer)], "");
 	print_prompt();

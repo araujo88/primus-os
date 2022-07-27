@@ -6,6 +6,30 @@
 #define PI 3.14159265358979323846
 #define EULER 2.71828182845904523536
 
+#define typename(x) _Generic((x),                                      \
+                             short int                                 \
+                             : "short int", unsigned short int         \
+                             : "unsigned short int",                   \
+                               int                                     \
+                             : "int", unsigned int                     \
+                             : "unsigned int",                         \
+                               long int                                \
+                             : "long int", unsigned long int           \
+                             : "unsigned long int",                    \
+                               long long int                           \
+                             : "long long int", unsigned long long int \
+                             : "unsigned long long int",               \
+                               float                                   \
+                             : "float", double                         \
+                             : "double",                               \
+                               long double                             \
+                             : "long double",                          \
+                               void *                                  \
+                             : "pointer to void", int *                \
+                             : "pointer to int",                       \
+                               default                                 \
+                             : "other")
+
 double machine_eps(double x);
 uint32_t fact(uint32_t n);
 double abs(double x);
