@@ -14,6 +14,7 @@
 #include "../include/sleep.h"
 #include "../include/thread.h"
 #include "../include/memory.h"
+#include "../include/shell_history.h"
 
 #define DEBUG false
 
@@ -31,6 +32,7 @@ int main(void)
 	char *string;
 	char *buff;
 	uint8_t byte;
+	node_t *head = NULL;
 
 	terminal_initialize(default_font_color, COLOR_BLACK);
 	terminal_set_colors(COLOR_LIGHT_GREEN, COLOR_BLACK);
@@ -38,8 +40,8 @@ int main(void)
 	print_logo();
 	about(current_version);
 	printf("\n\tType \"help\" for a list of commands.\n\n");
-	printf("\tCurrent datetime: ");
-	datetime();
+	// printf("\tCurrent datetime: ");
+	// datetime();
 	printf("\n\tWelcome!\n\n");
 
 	terminal_set_colors(default_font_color, COLOR_BLACK);
@@ -80,6 +82,7 @@ int main(void)
 			if (byte == ENTER)
 			{
 				strcpy(buffer, tolower(buffer));
+				insert_at_head(&head, create_new_node(buffer));
 
 				if (strlen(buffer) > 0 && strcmp(buffer, "exit") == 0)
 				{
@@ -232,6 +235,7 @@ int main(void)
 					printf("\n\t datetime           - \tdisplays current date and time");
 					printf("\n\t date               - \tdisplays current date");
 					printf("\n\t clock              - \tdisplays clock");
+					printf("\n\t history            - \tdisplays commands history");
 					printf("\n\t reboot             - \treboots system");
 					printf("\n\t shutdown           - \tsends shutdown signal");
 					printf("\n");
@@ -271,6 +275,10 @@ int main(void)
 				else if (strlen(buffer) > 0 && strcmp(buffer, "shutdown") == 0)
 				{
 					shutdown();
+				}
+				else if (strlen(buffer) > 0 && strcmp(buffer, "history") == 0)
+				{
+					print_history(head);
 				}
 				else if (strlen(buffer) == 0)
 				{
