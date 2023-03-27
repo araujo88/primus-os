@@ -5,6 +5,11 @@
 A simple bare-bones 32-bit Ring 0 operating system written in Assembly x86 and C for educational purposes. <br>
 Inspired by Terry A. Davis (in memoriam).
 
+## Dependencies for building
+
+`xorriso` <br>
+`mtools` <br>
+
 ## Bootloader "hello world" example
 
 ### Compile bootloader
