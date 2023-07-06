@@ -15,6 +15,7 @@
 #include "../include/thread.h"
 #include "../include/memory.h"
 #include "../include/shell_history.h"
+#include "../include/calculator.h"
 
 #define DEBUG false
 
@@ -279,6 +280,10 @@ int main(void)
 				else if (strlen(buffer) > 0 && strcmp(buffer, "history") == 0)
 				{
 					print_history(head);
+				}
+				else if (strlen(buffer) > 0 && (strstr(buffer, "+") == 0 || strstr(buffer, "-") == 0 || strstr(buffer, "*") == 0 || strstr(buffer, "/") == 0 ))
+				{
+					compute(buffer);
 				}
 				else if (strlen(buffer) == 0)
 				{

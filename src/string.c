@@ -517,3 +517,30 @@ void itoa(char *str, int num, int base)
     // Reverse the string
     reverse(str, i);
 }
+
+char* strtok(char* str, const char* delim) {
+    static char* p = 0;
+
+    if(str != NULL)
+        p = str;
+    else if(p == NULL)
+        return NULL;
+
+    char* start = p;
+
+    while(*p != '\0') {
+        for(const char* d = delim; *d != '\0'; d++) {
+            if(*p == *d) {
+                *p = '\0';
+                p++;
+                return start;
+            }
+        }
+        p++;
+    }
+
+    if(p != start)
+        return start;
+
+    return NULL;
+}
