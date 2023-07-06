@@ -281,7 +281,7 @@ int main(void)
 				{
 					print_history(head);
 				}
-				else if (strlen(buffer) > 0 && (strstr(buffer, "+") == 0 || strstr(buffer, "-") == 0 || strstr(buffer, "*") == 0 || strstr(buffer, "/") == 0 ))
+				else if (strlen(buffer) > 0 && (strstr(buffer, "+") != NULL || strstr(buffer, "-") != NULL || strstr(buffer, "*") != NULL|| strstr(buffer, "/") != NULL ))
 				{
 					compute(buffer);
 				}
