@@ -115,7 +115,7 @@ start:
     }
 
     sprintf(current_datetime, "%u:%u:%u - %u/%u/%u", hours, minutes, seconds, day, month, year);
-    printf("%s\n", current_datetime);
+    printk("%s\n", current_datetime);
 }
 
 void date()
@@ -167,7 +167,7 @@ start:
     }
 
     sprintf(current_date, "%u/%u/%u", day, month, year);
-    printf("%s\n", current_date);
+    printk("%s\n", current_date);
 }
 
 void clock()
@@ -232,7 +232,7 @@ start:
     }
 
     sprintf(current_time, "%u:%u:%u", hours, minutes, seconds);
-    printf("%s\n", current_time);
+    printk("%s\n", current_time);
 }
 
 uint32_t current_seconds()

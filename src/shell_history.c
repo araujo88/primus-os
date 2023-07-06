@@ -12,10 +12,10 @@ void print_history(node_t *head)
 {
     node_t *temporary = head;
 
-    printf("\n");
+    printk("\n");
     while (temporary != NULL)
     {
-        printf("%s\n", temporary->buffer);
+        printk("%s\n", temporary->buffer);
         temporary = temporary->next;
     }
 }

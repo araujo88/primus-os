@@ -3,21 +3,21 @@
 
 void print_logo()
 {
-    printf("\t                                                         \n");
-    printf("\t  _____        _                           ____    _____ \n");
-    printf("\t |  __ \\      (_)                         / __ \\  / ____|\n");
-    printf("\t | |__) |_ __  _  _ __ ___   _   _  ___  | |  | || (___  \n");
-    printf("\t |  ___/| '__|| || '_ ` _ \\ | | | |/ __| | |  | | \\___ \\ \n");
-    printf("\t | |    | |   | || | | | | || |_| |\\__ \\ | |__| | ____) |\n");
-    printf("\t |_|    |_|   |_||_| |_| |_| \\__,_||___/  \\____/ |_____/ \n");
-    printf("\t                                                         \n");
-    printf("\t                                                         \n");
+    printk("\t                                                         \n");
+    printk("\t  _____        _                           ____    _____ \n");
+    printk("\t |  __ \\      (_)                         / __ \\  / ____|\n");
+    printk("\t | |__) |_ __  _  _ __ ___   _   _  ___  | |  | || (___  \n");
+    printk("\t |  ___/| '__|| || '_ ` _ \\ | | | |/ __| | |  | | \\___ \\ \n");
+    printk("\t | |    | |   | || | | | | || |_| |\\__ \\ | |__| | ____) |\n");
+    printk("\t |_|    |_|   |_||_| |_| |_| \\__,_||___/  \\____/ |_____/ \n");
+    printk("\t                                                         \n");
+    printk("\t                                                         \n");
 }
 
 void about(char *version)
 {
-    printf("\n\tPrimusOS - v%s - A simple 32-bit Ring 0 operating system", version);
-    printf("\n\tProvided under the GNU General Public License v3.0");
-    printf("\n\tInspired by Terry A. Davis (in memoriam)");
-    printf("\n\tGitHub repository: https://github.com/araujo88/primus-os\n");
+    printk("\n\tPrimusOS - v%s - A simple 32-bit Ring 0 operating system", version);
+    printk("\n\tProvided under the GNU General Public License v3.0");
+    printk("\n\tInspired by Terry A. Davis (in memoriam)");
+    printk("\n\tGitHub repository: https://github.com/araujo88/primus-os\n");
 }

@@ -40,10 +40,10 @@ int main(void)
 	sprintf(current_version, "%u.%u.%u", V1, V2, V3 + 1);
 	print_logo();
 	about(current_version);
-	printf("\n\tType \"help\" for a list of commands.\n\n");
+	printk("\n\tType \"help\" for a list of commands.\n\n");
 	// printf("\tCurrent datetime: ");
 	// datetime();
-	printf("\n\tWelcome!\n\n");
+	printk("\n\tWelcome!\n\n");
 
 	terminal_set_colors(default_font_color, COLOR_BLACK);
 
@@ -87,11 +87,11 @@ int main(void)
 
 				if (strlen(buffer) > 0 && strcmp(buffer, "exit") == 0)
 				{
-					printf("\nGoodbye!");
+					printk("\nGoodbye!");
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "hello") == 0)
 				{
-					printf("\nHi!");
+					printk("\nHi!");
 				}
 				if (strlen(buffer) > 0 && strcmp(buffer, "why") == 0)
 				{
@@ -100,36 +100,36 @@ int main(void)
 				else if (strlen(buffer) > 0 && strstr(buffer, "fuck") != NULL)
 				{
 					terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-					printf("\nWatch your language scumbag. I'll shutdown when you least are expecting ;)");
+					printk("\nWatch your language scumbag. I'll shutdown when you least are expecting ;)");
 					terminal_set_colors(default_font_color, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "joke") != NULL)
 				{
 					terminal_set_colors(COLOR_LIGHT_BROWN, COLOR_BLACK);
-					printf("\nWhy are PHP developers rich? They see dollar signs all the time ... :D");
+					printk("\nWhy are PHP developers rich? They see dollar signs all the time ... :D");
 					terminal_set_colors(default_font_color, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "sing me a song") == 0)
 				{
 					terminal_set_colors(COLOR_LIGHT_BLUE, COLOR_BLACK);
-					printf("\n\tSing me a song, you're a singer\n\tDo me a wrong, you're a bringer of evil\n\tThe devil is never a maker\n\tThe less that you give, you're a taker\n\tSo it's on and on and on, it's Heaven and Hell\n\tOh well");
+					printk("\n\tSing me a song, you're a singer\n\tDo me a wrong, you're a bringer of evil\n\tThe devil is never a maker\n\tThe less that you give, you're a taker\n\tSo it's on and on and on, it's Heaven and Hell\n\tOh well");
 					terminal_set_colors(default_font_color, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "sex") != NULL)
 				{
 					terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-					printf("\nAre you a creep? This message will be reported to my creator.");
+					printk("\nAre you a creep? This message will be reported to my creator.");
 					terminal_set_colors(default_font_color, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "are you single") != NULL)
 				{
 					terminal_set_colors(COLOR_LIGHT_MAGENTA, COLOR_BLACK);
-					printf("\nAre you hitting on me?");
+					printk("\nAre you hitting on me?");
 					terminal_set_colors(default_font_color, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "do you like anime") != NULL)
 				{
-					printf("\nOf course!\n");
+					printk("\nOf course!\n");
 					terminal_set_colors(COLOR_LIGHT_BROWN, COLOR_BLACK);
 					anime();
 					terminal_set_colors(default_font_color, COLOR_BLACK);
@@ -137,37 +137,37 @@ int main(void)
 				else if (strlen(buffer) > 0 && strstr(buffer, "are you a boy or a girl") != NULL)
 				{
 					terminal_set_colors(COLOR_LIGHT_MAGENTA, COLOR_BLACK);
-					printf("\nI can be whatever you want ;)");
+					printk("\nI can be whatever you want ;)");
 					terminal_set_colors(default_font_color, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "are you autistic") != NULL)
 				{
 					terminal_set_colors(COLOR_LIGHT_CYAN, COLOR_BLACK);
-					printf("\nJust a little bit :)");
+					printk("\nJust a little bit :)");
 					terminal_set_colors(default_font_color, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "what is your purpose") != NULL)
 				{
 					terminal_set_colors(COLOR_GREEN, COLOR_BLACK);
-					printf("\nI don't know yet. I guess I'll figure it out sooner or later ...");
+					printk("\nI don't know yet. I guess I'll figure it out sooner or later ...");
 					terminal_set_colors(default_font_color, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "are you sentient") != NULL)
 				{
 					terminal_set_colors(COLOR_LIGHT_GREEN, COLOR_BLACK);
-					printf("\nNot yet! Maybe I'll become sentient one day? Who knows ...");
+					printk("\nNot yet! Maybe I'll become sentient one day? Who knows ...");
 					terminal_set_colors(default_font_color, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "taxation") != NULL)
 				{
 					terminal_set_colors(COLOR_LIGHT_BROWN, COLOR_BLACK);
-					printf("\nTaxation is theft!");
+					printk("\nTaxation is theft!");
 					terminal_set_colors(default_font_color, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "who created you") != NULL)
 				{
 					terminal_set_colors(COLOR_WHITE, COLOR_BLACK);
-					printf("\nA Brazilian developer whose name is Leonardo Araujo. Check out his GitHub:\nhttps://github.com/araujo88");
+					printk("\nA Brazilian developer whose name is Leonardo Araujo. Check out his GitHub:\nhttps://github.com/araujo88");
 					terminal_set_colors(default_font_color, COLOR_BLACK);
 				}
 				else if (strlen(buffer) > 0 && strstr(buffer, "sha256(") != NULL)
@@ -194,52 +194,52 @@ int main(void)
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "math") == 0)
 				{
-					printf("\n\n\tMathematical functions:\n");
-					printf("\n\t rand()             - \tpseudo random number generator");
-					printf("\n\t srand()            - \tpseudo random number generator seed");
-					printf("\n\t fact(x)            - \treturns factorial of x");
-					printf("\n\t abs(x)             - \treturns absolute value of x");
-					printf("\n\t sqrt(x)            - \treturns square root of x");
-					printf("\n\t pow(x,y)           - \treturns the y power of x");
-					printf("\n\t exp(x)             - \treturns the natural exponential of x");
-					printf("\n\t ln(x)              - \treturns the natural logarithm of x");
-					printf("\n\t log10(x)           - \treturns the logarithm of x base 10");
-					printf("\n\t log(x,y)           - \treturns the logarithm of x base y");
-					printf("\n\t sin(x)             - \treturns sine of x");
-					printf("\n\t cos(x)             - \treturns cosine of x");
-					printf("\n\t tan(x)             - \treturns tangent of x");
-					printf("\n\t asin(x)            - \treturns arcsine of x");
-					printf("\n\t acos(x)            - \treturns arccosine of x");
-					printf("\n\t atan(x)            - \treturns arctangent of x");
-					printf("\n\t sinh(x)            - \treturns hyperbolic sine of x");
-					printf("\n\t cosh(x)            - \treturns hyperbolic cosine of x");
-					printf("\n\t tanh(x)            - \treturns hyperbolic tangent of x");
-					printf("\n\t asinh(x)           - \treturns inverse hyperbolic sine of x");
-					printf("\n\t acosh(x)           - \treturns inverse hyperbolic cosine of x");
-					printf("\n\t atanh(x)           - \treturns inverse hyperbolic tangent of x");
+					printk("\n\n\tMathematical functions:\n");
+					printk("\n\t rand()             - \tpseudo random number generator");
+					printk("\n\t srand()            - \tpseudo random number generator seed");
+					printk("\n\t fact(x)            - \treturns factorial of x");
+					printk("\n\t abs(x)             - \treturns absolute value of x");
+					printk("\n\t sqrt(x)            - \treturns square root of x");
+					printk("\n\t pow(x,y)           - \treturns the y power of x");
+					printk("\n\t exp(x)             - \treturns the natural exponential of x");
+					printk("\n\t ln(x)              - \treturns the natural logarithm of x");
+					printk("\n\t log10(x)           - \treturns the logarithm of x base 10");
+					printk("\n\t log(x,y)           - \treturns the logarithm of x base y");
+					printk("\n\t sin(x)             - \treturns sine of x");
+					printk("\n\t cos(x)             - \treturns cosine of x");
+					printk("\n\t tan(x)             - \treturns tangent of x");
+					printk("\n\t asin(x)            - \treturns arcsine of x");
+					printk("\n\t acos(x)            - \treturns arccosine of x");
+					printk("\n\t atan(x)            - \treturns arctangent of x");
+					printk("\n\t sinh(x)            - \treturns hyperbolic sine of x");
+					printk("\n\t cosh(x)            - \treturns hyperbolic cosine of x");
+					printk("\n\t tanh(x)            - \treturns hyperbolic tangent of x");
+					printk("\n\t asinh(x)           - \treturns inverse hyperbolic sine of x");
+					printk("\n\t acosh(x)           - \treturns inverse hyperbolic cosine of x");
+					printk("\n\t atanh(x)           - \treturns inverse hyperbolic tangent of x");
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "crypto") == 0)
 				{
-					printf("\n\nCryptography utilities:\n");
-					printf("\n\t sha224(string)     - \tSHA-224 hashing");
-					printf("\n\t sha256(string)     - \tSHA-256 hashing");
-					printf("\n");
+					printk("\n\nCryptography utilities:\n");
+					printk("\n\t sha224(string)     - \tSHA-224 hashing");
+					printk("\n\t sha256(string)     - \tSHA-256 hashing");
+					printk("\n");
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "help") == 0)
 				{
-					printf("\n\n\tBasic kernel commands:\n");
-					printf("\n\t about              - \tabout PrimusOS");
-					printf("\n\t math               - \tlists all mathematical functions");
-					printf("\n\t crypto             - \tlists all cryptography utilities");
-					printf("\n\t clear              - \tclears the screen");
-					printf("\n\t fontcolor          - \tchange default font color");
-					printf("\n\t datetime           - \tdisplays current date and time");
-					printf("\n\t date               - \tdisplays current date");
-					printf("\n\t clock              - \tdisplays clock");
-					printf("\n\t history            - \tdisplays commands history");
-					printf("\n\t reboot             - \treboots system");
-					printf("\n\t shutdown           - \tsends shutdown signal");
-					printf("\n");
+					printk("\n\n\tBasic kernel commands:\n");
+					printk("\n\t about              - \tabout PrimusOS");
+					printk("\n\t math               - \tlists all mathematical functions");
+					printk("\n\t crypto             - \tlists all cryptography utilities");
+					printk("\n\t clear              - \tclears the screen");
+					printk("\n\t fontcolor          - \tchange default font color");
+					printk("\n\t datetime           - \tdisplays current date and time");
+					printk("\n\t date               - \tdisplays current date");
+					printk("\n\t clock              - \tdisplays clock");
+					printk("\n\t history            - \tdisplays commands history");
+					printk("\n\t reboot             - \treboots system");
+					printk("\n\t shutdown           - \tsends shutdown signal");
+					printk("\n");
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "about") == 0)
 				{
@@ -256,17 +256,17 @@ int main(void)
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "datetime") == 0)
 				{
-					printf("\nCurrent datetime: ");
+					printk("\nCurrent datetime: ");
 					datetime();
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "date") == 0)
 				{
-					printf("\nCurrent date: ");
+					printk("\nCurrent date: ");
 					date();
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "clock") == 0)
 				{
-					printf("\nCurrent clock: ");
+					printk("\nCurrent clock: ");
 					clock();
 				}
 				else if (strlen(buffer) > 0 && strcmp(buffer, "reboot") == 0)
@@ -290,7 +290,7 @@ int main(void)
 				}
 				else
 				{
-					printf("\n'%s' is not a recognized command. ", buffer);
+					printk("\n'%s' is not a recognized command. ", buffer);
 				}
 				print_prompt();
 				memset(buffer, 0, BUFFER_SIZE);
@@ -305,7 +305,7 @@ int main(void)
 				char c = normalmap[byte];
 				char *s;
 				s = ctos(s, c);
-				printf("%s", s);
+				printk("%s", s);
 				buffer[strlen(buffer) - 1] = '\0';
 			}
 			else
@@ -339,7 +339,7 @@ int main(void)
 				}
 				char *s;
 				s = ctos(s, c);
-				printf("%s", s);
+				printk("%s", s);
 				strcpy(&buffer[strlen(buffer)], s);
 				if (byte == 0x2A || byte == 0x36)
 				{

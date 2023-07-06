@@ -31,7 +31,7 @@ static enum vga_color default_font_color = COLOR_LIGHT_GREY;
 
 void terminal_initialize(enum vga_color font_color, enum vga_color background_color);
 void terminal_set_colors(enum vga_color font_color, enum vga_color background_color);
-int printf(const char *format, ...);
+int printk(const char *format, ...);
 int get_terminal_row(void);
 int get_terminal_col(void);
 void term_putc(char c, enum vga_color char_color);

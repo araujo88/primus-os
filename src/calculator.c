@@ -8,7 +8,7 @@ int calc_top = -1;
 
 void calc_push(double val) {
     if(calc_top >= MAX_STACK_SIZE - 1) {
-        printf("Stack overflow\n");
+        printk("Stack overflow\n");
         return;
     }
     calc_stack[++calc_top] = val;
@@ -16,14 +16,14 @@ void calc_push(double val) {
 
 double calc_pop() {
     if(calc_top < 0) {
-        printf("Stack underflow\n");
+        printk("Stack underflow\n");
         return;
     }
     return calc_stack[calc_top--];
 }
 
 void compute(char *buffer) {
-     char *token;
+    char *token;
     double a, b;
     char symbol;
 
@@ -45,24 +45,19 @@ void compute(char *buffer) {
                     if(b != 0) {
                         calc_push(a / b);
                     } else {
-                        printf("Error: Division by zero\n");
+                        printk("Error: Division by zero\n");
                         return;
                     }
                     break;
                 default:
-                    printf("Error: Invalid operator '%c'\n", symbol);
+                    printk("Error: Invalid operator '%c'\n", symbol);
                     return;
             }
         }
         token = strtok(NULL, " ");
     }
 
-    printf("\nResult: %f\n", calc_pop());
-
-    // if(calc_top >= 0) {
-    //     printf("Error: Too many numbers\n");
-    //     return;
-    // }
+    printk("\nResult: %f\n", calc_pop());
 
     return;
 }

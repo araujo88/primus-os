@@ -113,12 +113,12 @@ void math_shell(char *buffer)
         num = parse_int(parser, ')');
         if (num != (int)NULL)
         {
-            printf("\n%d", fact(num));
+            printk("\n%d", fact(num));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -132,13 +132,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, exp(num), 6));
+            printk("\n");
+            printk(ftoa(buff, exp(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -152,13 +152,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, ln(num), 6));
+            printk("\n");
+            printk(ftoa(buff, ln(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -172,13 +172,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, log10(num), 6));
+            printk("\n");
+            printk(ftoa(buff, log10(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -192,13 +192,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, sqrt(num), 6));
+            printk("\n");
+            printk(ftoa(buff, sqrt(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -212,13 +212,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, abs(num), 6));
+            printk("\n");
+            printk(ftoa(buff, abs(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -232,13 +232,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, asinh(num), 6));
+            printk("\n");
+            printk(ftoa(buff, asinh(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -252,13 +252,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, acosh(num), 6));
+            printk("\n");
+            printk(ftoa(buff, acosh(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -272,13 +272,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, atanh(num), 6));
+            printk("\n");
+            printk(ftoa(buff, atanh(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -292,13 +292,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, asin(num), 6));
+            printk("\n");
+            printk(ftoa(buff, asin(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -312,13 +312,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, acos(num), 6));
+            printk("\n");
+            printk(ftoa(buff, acos(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -332,13 +332,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, atan(num), 6));
+            printk("\n");
+            printk(ftoa(buff, atan(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -352,13 +352,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, sin(num), 6));
+            printk("\n");
+            printk(ftoa(buff, sin(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -372,13 +372,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, cos(num), 6));
+            printk("\n");
+            printk(ftoa(buff, cos(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -392,13 +392,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, tan(num), 6));
+            printk("\n");
+            printk(ftoa(buff, tan(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -412,13 +412,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, sinh(num), 6));
+            printk("\n");
+            printk(ftoa(buff, sinh(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -432,13 +432,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, cosh(num), 6));
+            printk("\n");
+            printk(ftoa(buff, cosh(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -452,13 +452,13 @@ void math_shell(char *buffer)
         num = parse_float(parser, ')');
         if (num != EPS)
         {
-            printf("\n");
-            printf(ftoa(buff, tanh(num), 6));
+            printk("\n");
+            printk(ftoa(buff, tanh(num), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -479,13 +479,13 @@ void math_shell(char *buffer)
             }
             parser++;
             n = parse_float(parser, ')');
-            printf("\n");
-            printf(ftoa(buff, pow(num, n), 6));
+            printk("\n");
+            printk(ftoa(buff, pow(num, n), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
@@ -506,25 +506,25 @@ void math_shell(char *buffer)
             }
             parser++;
             n = parse_float(parser, ')');
-            printf("\n");
-            printf(ftoa(buff, log(num, n), 6));
+            printk("\n");
+            printk(ftoa(buff, log(num, n), 6));
         }
         else
         {
             terminal_set_colors(COLOR_LIGHT_RED, COLOR_BLACK);
-            printf("\nParsing error.");
+            printk("\nParsing error.");
             terminal_set_colors(default_font_color, COLOR_BLACK);
         }
     }
     else if (strlen(buffer) > 0 && strcmp(buffer, "srand()") == 0)
     {
-        printf("\nGenerated seed for random number generator.");
+        printk("\nGenerated seed for random number generator.");
         srand();
     }
     else if (strlen(buffer) > 0 && strcmp(buffer, "rand()") == 0)
     {
         char *buff;
-        printf("\n");
-        printf(ftoa(buff, rand(), 6));
+        printk("\n");
+        printk(ftoa(buff, rand(), 6));
     }
 }

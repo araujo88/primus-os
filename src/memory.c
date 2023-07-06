@@ -15,7 +15,7 @@ void memcpy(void *dest, void *src, size_t n)
 
 void heap_init()
 {
-    printf("\nInitializing heap ...");
+    printk("\nInitializing heap ...");
 
     int total_table_entries = HEAP_SIZE_BYTES / HEAP_BLOCK_SIZE;
     kernel_heap_table.entries = (HEAP_BLOCK_TABLE_ENTRY *)HEAP_TABLE_ADRESS;
@@ -25,10 +25,10 @@ void heap_init()
     int res = heap_create(&kernel_heap, (void *)HEAP_ADDRESS, end, &kernel_heap_table);
     if (res < 0)
     {
-        printf("\nKernel panic: Failed to create heap");
+        printk("\nKernel panic: Failed to create heap");
     }
 
-    printf("\nHeap initialized.");
+    printk("\nHeap initialized.");
 }
 
 static int heap_validate_alignment(void *ptr)
@@ -167,7 +167,7 @@ void *heap_malloc_blocks(struct heap *heap, uint32_t total_blocks)
     int start_block = heap_get_start_block(heap, total_blocks);
     if (start_block < 0)
     {
-        printf("\nError getting block");
+        printk("\nError getting block");
         goto out;
     }
 

@@ -124,5 +124,5 @@ void sha224(char *message)
     // Final step - concatenate
     unsigned char digest[256];
     sprintf(digest, "%x%x%x%x%x%x%x", h0, h1, h2, h3, h4, h5, h6);
-    printf("\n%s", digest);
+    printk("\n%s", digest);
 }

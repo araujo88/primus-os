@@ -92,6 +92,6 @@ void move_cursor(int row, int col)
 
 void print_prompt(void)
 {
-    printf("\n$ > ");
+    printk("\n$ > ");
     move_cursor(get_terminal_row(), get_terminal_col());
 }
