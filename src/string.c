@@ -519,28 +519,21 @@ void itoa(char *str, int num, int base)
 }
 
 char* strtok(char* str, const char* delim) {
-    static char* p = 0;
-
-    if(str != NULL)
-        p = str;
-    else if(p == NULL)
-        return NULL;
-
-    char* start = p;
-
-    while(*p != '\0') {
-        for(const char* d = delim; *d != '\0'; d++) {
-            if(*p == *d) {
-                *p = '\0';
-                p++;
-                return start;
+    static char *next_token;
+    if (str) next_token = str;
+    if (!next_token) return NULL;
+    
+    char *current_token = next_token;
+    while (*next_token) {
+        for (const char *d = delim; *d; d++) {
+            if (*next_token == *d) {
+                *next_token = '\0';
+                next_token++;
+                return current_token;
             }
         }
-        p++;
+        next_token++;
     }
-
-    if(p != start)
-        return start;
-
-    return NULL;
+    next_token = NULL;
+    return current_token;
 }
