@@ -26,6 +26,7 @@ Inspired by Terry A. Davis (in memoriam).
 
 ## Generating the ISO image
 
+`make check_dir`
 `make clean` <br>
 `make primus-os.iso`
 
