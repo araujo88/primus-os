@@ -53,5 +53,4 @@ install: primus-os.bin
 	sudo cp $< /boot/primus-os.bin
 
 clean:
-	rm -f *.o primus-os primus-os.iso primus-os.bin $(OBJ_DIR)/*.o
-	rm -rf iso
+	rm -f *.o primus-os primus-os.iso primus-os.bin $(OBJ_DIR)/*.o iso
