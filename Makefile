@@ -7,6 +7,7 @@ LDPARAMS = -melf_i386
 SRC_DIR=src
 HDR_DIR=include/
 OBJ_DIR=obj
+ISO_DIR=iso
 
 SRC_FILES1=$(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES1=$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES1))
@@ -52,4 +53,4 @@ install: primus-os.bin
 	sudo cp $< /boot/primus-os.bin
 
 clean:
-	rm -f *.o primus-os primus-os.iso primus-os.bin $(OBJ_DIR)/*.o
+	rm -rf *.o primus-os primus-os.iso primus-os.bin $(OBJ_DIR)/*.o iso
