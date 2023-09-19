@@ -1,6 +1,6 @@
 CC=gcc
 AS=as
-GCCPARAMS = -m32 -nostdlib -fno-builtin -fno-exceptions -ffreestanding -fno-leading-underscore
+GCCPARAMS = -m32 -nostdlib -fno-builtin -fno-exceptions -ffreestanding -fno-leading-underscore -Wall -Wextra -Wpedantic
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
